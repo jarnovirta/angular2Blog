@@ -9,9 +9,10 @@ import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService }  from './services/in-memory-data.service';
 
 import { AppComponent }         from './app.component';
-import { PageHeaderComponent} 	from './page-header.component';
-import { PageFooterComponent}   from './page-footer.component';
-import { BlogPostListComponent}   from './blog-post-list.component';
+import { PageHeaderComponent } 	from './page-header.component';
+import { PageFooterComponent }   from './page-footer.component';
+import { BlogPostListComponent }   from './blog-post-list.component';
+import { NavBarComponent }   from './nav-bar.component';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { BlogPostListComponent}   from './blog-post-list.component';
     AppComponent,
     PageHeaderComponent,
     PageFooterComponent,
-    BlogPostListComponent
+    BlogPostListComponent,
+    NavBarComponent    
   ],
   bootstrap: [ AppComponent ]
 })
