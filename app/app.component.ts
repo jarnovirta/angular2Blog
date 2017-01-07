@@ -1,11 +1,10 @@
 import { Component }          from '@angular/core';
+import { PageHeaderComponent } from './page-header.component';
+
 @Component({
   moduleId: module.id,
   selector: 'angular2blog',
-  template: `
-	  <h1>{{title}}</h1>
-	  
-	`,
+  templateUrl: 'app.component.html'
   
 })
 export class AppComponent {

@@ -82,16 +82,37 @@
           </div>
         <!-- /.container -->
       </nav>
- 
+
+      <!-- HEADER -->
+
+      <header class="intro-header" style="background-image: url({{ pageMeta.headerBackgroundImage }})">
+        <page-header></page-header>
+      </header>  
+
       <!-- PAGE VIEW -->
       <article>
         <div autoscroll="true"><angular2blog></angular2blog></div>
+        
       </article>
+
+      <!-- FÓOTER -->
+
+      <footer>
+          <div class="container">
+              <div class="row">
+                  <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                      <p class="copyright text-muted">Copyright &copy; codegizmos.com 2017</p>
+                  </div>
+              </div>
+          </div>
+      </footer>
+
 
       <!-- JAVASCRIPT FILE -->
       
       <script src="/app/dist/js/bowerComponents.js"></script>
-      
+      <script src="/app/dist/js/scripts.js"></script>
+
         <!-- endbuild -->
     </body>
 </html>
