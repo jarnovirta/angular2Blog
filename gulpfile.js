@@ -39,29 +39,29 @@ gulp.task('bowerScripts', ['setBuildOptions'], function(cb) {
 
    	gulp.src(mainBowerFiles())
         		.pipe(jsFilter)
-        		.pipe(gulp.dest('app/dist/bowerScriptFilesList'))
+        		.pipe(gulp.dest('client/dist/bowerScriptFilesList'))
         		.pipe(sourcemaps.init())
         		.pipe(concat('bowerComponents.js'))
         		//.pipe(gulpif(minifyFiles, uglify()))
         		.pipe(gulpif(minifyFiles, sourcemaps.write('./sourcemaps')))
-    			.pipe(gulp.dest('app/dist/js'))
+    			.pipe(gulp.dest('client/dist/js'))
     			.on('end', cb);
 });
 
 // gulp.task('scripts', ['setBuildOptions'], function(cb) {
-//	gulp.src(['app/**/*.js'])
+//	gulp.src(['client/**/*.js'])
 //		.pipe(sourcemaps.init())
 //    	.pipe(concat('scripts.js'))
     	//.pipe(gulpif(minifyFiles, uglify()))
 //        .pipe(gulpif(minifyFiles, sourcemaps.write('./sourcemaps')))
-//   	.pipe(gulp.dest('app/dist/js'))
+//   	.pipe(gulp.dest('client/dist/js'))
 //    	.on('end', cb);
     
 // }); 
 
 gulp.task('lintScripts', function() {
 	var appScripts = function(cb) {
-		gulp.src(['app/scripts/**/*.js'])
+		gulp.src(['client/scripts/**/*.js'])
 	    .pipe(jshint())
 		.pipe(jshint.reporter(stylish))
 		.on('end', cb);	    	
@@ -79,25 +79,25 @@ gulp.task('bowerStyles', ['setBuildOptions'], function(cb) {
 		function(next) {
 			gulp.src(mainBowerFiles())
 	        .pipe(cssFilter)
-			.pipe(gulp.dest('app/dist/bowerCSSFileList'))
+			.pipe(gulp.dest('client/dist/bowerCSSFileList'))
 			.pipe(concat('bowerComponents.css'))
 			.pipe(gulpif(minifyFiles, minifycss()))
-			.pipe(gulp.dest('app/dist/styles'))
+			.pipe(gulp.dest('client/dist/styles'))
 			.on('end', next);
 		},
 		function(next) {
-			gulp.src(['app/3rdPartyScripts/bower_components/font-awesome/css/font-awesome.css'])
-			.pipe(gulp.dest('app/dist/styles'))
+			gulp.src(['client/3rdPartyScripts/bower_components/font-awesome/css/font-awesome.css'])
+			.pipe(gulp.dest('client/dist/styles'))
 			.on('end', next);
 		},
 		function(next) {
-			gulp.src('app/3rdPartyScripts/bower_components/bootstrap/fonts/*')
-			.pipe(gulp.dest('app/dist/fonts'))
+			gulp.src('client/3rdPartyScripts/bower_components/bootstrap/fonts/*')
+			.pipe(gulp.dest('client/dist/fonts'))
 			.on('end', next);
 		},
 		function(next) {
-			gulp.src('app/3rdPartyScripts/bower_components/font-awesome/fonts/*')
-			.pipe(gulp.dest('app/dist/fonts'))
+			gulp.src('client/3rdPartyScripts/bower_components/font-awesome/fonts/*')
+			.pipe(gulp.dest('client/dist/fonts'))
 			.on('end', next);
 		}
 		], cb);
@@ -108,8 +108,8 @@ gulp.task('styles', ['setBuildOptions'], function(cb) {
 	// var cssFilter = gulpFilter(['*.css', '!.min.css'], {restore: true});
 
 	var queue = streamqueue({ objectMode: true });
-	queue.queue(gulp.src(['app/styles/**/*.css']));
-	queue.queue(gulp.src(['app/styles/**/*.styl']).pipe(stylus()));
+	queue.queue(gulp.src(['client/styles/**/*.css']));
+	queue.queue(gulp.src(['client/styles/**/*.styl']).pipe(stylus()));
 	
 	queue.done()
 	.pipe(plumber({
@@ -117,18 +117,18 @@ gulp.task('styles', ['setBuildOptions'], function(cb) {
 			}))
 	.pipe(concat('styles.css'))
 	.pipe(gulpif(minifyFiles, minifycss()))
-	.pipe(gulp.dest('app/dist/styles'));
+	.pipe(gulp.dest('client/dist/styles'));
 	cb();
 });
 
 gulp.task('del', function(cb) {
-	return gulp.src('app/dist').pipe(rm());	
+	return gulp.src('client/dist').pipe(rm());	
 
 });
 
 gulp.task('watch', function() {
-	gulp.watch('app/styles/**/*', ['styles']);
-	gulp.watch('app/**/*.js', ['scripts']);
+	gulp.watch('client/styles/**/*', ['styles']);
+	gulp.watch('client/**/*.js', ['scripts']);
 });
 
 gulp.task('nodemon', function() {
@@ -136,7 +136,7 @@ gulp.task('nodemon', function() {
 	nodemon({
 	    script: './startServer.js'
 	    /*ignore: [
-	      '/app/scripts/**',
+	      '/client/scripts/**',
 	      '/node_modules/**',
 	      '/bower_components/**',
 	      '/test',
