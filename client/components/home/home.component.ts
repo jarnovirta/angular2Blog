@@ -7,5 +7,9 @@ import { Component } from '@angular/core';
 })
 
 export class HomeComponent  {
-	
+	pageInfo = {
+		'title': 'CodeGizmos.com',
+		'subTitle': 'Coding and Arduino Blog',
+		'description': 'Welcome to my coding and Arduino blog!'
+		};
 }

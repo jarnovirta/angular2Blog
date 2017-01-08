@@ -1,4 +1,4 @@
-import { Component }          from '@angular/core';
+import { Component, OnInit }          from '@angular/core';
 import { PageHeaderComponent } from './../header/page-header.component';
 
 @Component({
@@ -9,4 +9,5 @@ import { PageHeaderComponent } from './../header/page-header.component';
 })
 export class AppComponent {
   title = 'CodeGizmos blog!';
+
 }

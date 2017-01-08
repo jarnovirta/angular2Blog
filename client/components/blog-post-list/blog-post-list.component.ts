@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Injectable } from '@angular/core';
 
 import { Post }   from './../../shared/models/post';
 import { PostService}  from './../../shared/services/post.service';
@@ -6,10 +6,10 @@ import { PostService}  from './../../shared/services/post.service';
 @Component({
   moduleId: module.id,
   selector: 'blog-post-list',
-  templateUrl: 'blog-post-list.component.html',
-  providers: [ PostService] 
+  templateUrl: 'blog-post-list.component.html'
 })
 
+@Injectable()
 export class BlogPostListComponent implements OnInit {
 	posts: Post[];
 

@@ -14,6 +14,9 @@ import { PageFooterComponent }   from './components/footer/page-footer.component
 import { BlogPostListComponent }   from './components/blog-post-list/blog-post-list.component';
 import { NavBarComponent }   from './components/nav-bar/nav-bar.component';
 import { HomeComponent }  from './components/home/home.component';
+import { ContactComponent }   from './components/contact/contact.component';
+import { AboutComponent }   from './components/about/about.component';
+import { PostService}  from './shared/services/post.service';
 
 
 @NgModule({
@@ -31,8 +34,11 @@ import { HomeComponent }  from './components/home/home.component';
     PageFooterComponent,
     BlogPostListComponent,
     NavBarComponent,
-    HomeComponent    
+    HomeComponent,
+    ContactComponent,
+    AboutComponent
   ],
+  providers: [ PostService],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }
