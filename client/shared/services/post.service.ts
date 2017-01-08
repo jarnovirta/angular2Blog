@@ -51,7 +51,7 @@ export class PostService {
       .catch(this.handleError);
     }
   };
-
+/*
   loadMorePosts(): Promise<Post[]> {
     var defer = $q.defer();
     var topic = "find_posts";

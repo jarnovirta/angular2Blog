@@ -23,4 +23,5 @@ export class BlogPostComponent implements OnInit {
 	      .switchMap((params: Params) => this.postService.getPost(+params['id']))
 	      .subscribe(post => this.post = post);
 	}
+	
 }
