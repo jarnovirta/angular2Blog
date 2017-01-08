@@ -17,7 +17,8 @@ import { HomeComponent }  from './components/home/home.component';
 import { ContactComponent }   from './components/contact/contact.component';
 import { AboutComponent }   from './components/about/about.component';
 import { PostService}  from './shared/services/post.service';
-
+import { WebsocketService } from './shared/services/websocket.service';
+import { BlogPostComponent }  from './components/blog-post/blog-post.component';
 
 @NgModule({
   imports: [
@@ -26,7 +27,6 @@ import { PostService}  from './shared/services/post.service';
     FormsModule,
     HttpModule,
     InMemoryWebApiModule.forRoot(InMemoryDataService),
-
   ],
   declarations: [
     AppComponent,
@@ -36,9 +36,10 @@ import { PostService}  from './shared/services/post.service';
     NavBarComponent,
     HomeComponent,
     ContactComponent,
-    AboutComponent
+    AboutComponent,
+    BlogPostComponent
   ],
-  providers: [ PostService],
+  providers: [ PostService, WebsocketService],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }
