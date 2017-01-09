@@ -3,9 +3,12 @@ import { Component, OnInit, Injectable } from '@angular/core';
 import { Post }   from './../../shared/models/post';
 import { PostService}  from './../../shared/services/post.service';
 
+import { InfiniteScroll } from 'angular2-infinite-scroll';
+
 @Component({
   moduleId: module.id,
   selector: 'blog-post-list',
+  directives: [InfiniteScroll],
   templateUrl: 'blog-post-list.component.html'
 })
 
@@ -14,11 +17,14 @@ export class BlogPostListComponent implements OnInit {
 	posts: Post[];
 
   constructor(private postService: PostService) {}
+  ngOnInit(): void {
+    this.getPosts();
+  }
 	getPosts(): void {
-	    this.postService.getPosts().then(posts => this.posts = posts);
+	    this.postService.getPosts().then(posts => this.posts = posts.slice(0, 8));
 	  }
-  	ngOnInit(): void {
-    	this.getPosts();
-  	}
+  onScrollDown(): void {
+    console.log("Load more posts");
+  }
 }
 

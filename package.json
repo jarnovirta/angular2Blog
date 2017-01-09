@@ -25,22 +25,19 @@
     "@angular/platform-browser": "~2.4.0",
     "@angular/platform-browser-dynamic": "~2.4.0",
     "@angular/router": "~3.4.0",
-
     "angular-in-memory-web-api": "~0.2.2",
-    "systemjs": "0.19.40",
-    "core-js": "^2.4.1",
-    "reflect-metadata": "^0.1.8",
-    "rxjs": "5.0.1",
-    "zone.js": "^0.7.4",
     "angular-ui-tinymce": "0.0.5",
+    "angular2-infinite-scroll": "^0.2.8",
     "async": "^1.5.0",
     "bcrypt": "^0.8.5",
     "body-parser": "^1.14.1",
     "bower-files": "^3.11.3",
     "chalk": "^1.1.3",
     "compression": "^1.6.2",
+    "core-js": "^2.4.1",
     "express": "^4.13.3",
     "external-ip": "^0.2.4",
+    "grunt": "^1.0.1",
     "http-proxy": "^1.12.0",
     "jshint-stylish": "^2.1.0",
     "jsonwebtoken": "^5.5.0",
@@ -48,13 +45,17 @@
     "mongoose": "^4.2.3",
     "q": "^1.4.1",
     "redis": "^2.4.2",
+    "reflect-metadata": "^0.1.8",
     "request": "^2.67.0",
     "revalidator": "^0.3.1",
+    "rxjs": "5.0.1",
     "seaport": "^2.0.9",
+    "systemjs": "0.19.40",
     "tinymce": "^4.3.2",
     "winston": "^2.1.1",
     "ws": "^0.8.0",
-    "yargs": "^3.29.0"    
+    "yargs": "^3.29.0",
+    "zone.js": "^0.7.4"
   },
   "devDependencies": {
     "beeper": "^1.1.0",
@@ -78,7 +79,6 @@
     "gulp-less": "^3.0.3",
     "gulp-rimraf": "^0.2.0",
     "gulp-stylus": "^2.1.0",
-    "gulp-uglify": "^1.4.2",
     "merge-stream": "^1.0.0",
     "rsa-json": "^0.2.0",
     "run-sequence": "^1.1.4",
@@ -99,9 +99,9 @@
     "karma-jasmine-html-reporter": "^0.2.2",
     "protractor": "~4.0.14",
     "rimraf": "^2.5.4",
-
     "@types/node": "^6.0.46",
     "@types/jasmine": "^2.5.36"
   },
-  "repository": {}
+  "repository": {},
+  
 }

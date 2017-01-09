@@ -9,7 +9,7 @@ export class PageInfoService {
 
 	getPageInfo(url: string): Promise<PageInfo> {
 		if (url.substr(0, 7) == '/posts/' && url.length > 7) {
-			var promise = new Promise<PageInfo>((resolve, reject) => {
+			return new Promise<PageInfo>((resolve, reject) => {
 				this.postService.getCurrentPost().then(currentPost =>
 						{
 							resolve(new PageInfo(currentPost.title, 
@@ -20,7 +20,6 @@ export class PageInfoService {
 						}
 					)
 			})
-			return promise;
 		}
 		else {
 			switch (url) {

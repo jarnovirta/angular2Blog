@@ -13,6 +13,8 @@
       // our app is within the app folder
       app: 'client',
 
+      'angular2-infinite-scroll': './node_modules/angular2-infinite-scroll',
+
       // angular bundles
       '@angular/core': 'npm:@angular/core/bundles/core.umd.js',
       '@angular/common': 'npm:@angular/common/bundles/common.umd.js',
@@ -31,6 +33,10 @@
     packages: {
       app: {
         main: './main.js',
+        defaultExtension: 'js'
+      },
+      'angular2-infinite-scroll': {
+        main: 'angular2-infinite-scroll.js',
         defaultExtension: 'js'
       },
       rxjs: {

@@ -19,6 +19,7 @@ import { AboutComponent }   from './components/about/about.component';
 import { PostService}  from './shared/services/post.service';
 import { WebsocketService } from './shared/services/websocket.service';
 import { BlogPostComponent }  from './components/blog-post/blog-post.component';
+import { InfiniteScrollModule } from 'angular2-infinite-scroll';
 
 @NgModule({
   imports: [
@@ -27,6 +28,7 @@ import { BlogPostComponent }  from './components/blog-post/blog-post.component';
     FormsModule,
     HttpModule,
     InMemoryWebApiModule.forRoot(InMemoryDataService),
+    InfiniteScrollModule
   ],
   declarations: [
     AppComponent,
