@@ -14,14 +14,18 @@ import { PostService } from './../../shared/services/post.service';
 
 export class BlogPostComponent implements OnInit {
 	post: Post;
+	fetchPostPromise: Promise<Post>;
 
-	constructor(
-		private postService: PostService,
-		private route: ActivatedRoute) {};
+	constructor(private postService: PostService, private route: ActivatedRoute) {};
 	ngOnInit() {
-		this.route.params
-	      .switchMap((params: Params) => this.postService.getPost(+params['id']))
-	      .subscribe(post => this.post = post);
+		this.fetchPostPromise = this.postService.getPost(this.route.snapshot.params['id']);
+		this.fetchPostPromise.then(post => {
+			this.post = post;
+			this.postService.setCurrentPost(this.post);
+		}); 
 	}
-	
+	getCurrentBlogPost(): Promise<Number> {
+		if (this.post) return Promise.resolve(this.post._id);
+		else return this.fetchPostPromise.then(post => post._id);
+	}	
 }

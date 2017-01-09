@@ -15,10 +15,12 @@ export class PageHeaderComponent  {
 	pageInfo: PageInfo;
 	constructor(private router: Router, private pageInfoService: PageInfoService) {	}
   	ngOnInit(): void {
-  		this.router.events.subscribe( event => {
+  		this.router.events.subscribe(event => {
   			if (event instanceof NavigationStart) {
-  				this.pageInfo = this.pageInfoService.getPageInfo(event.url);
-  			}
+  				this.pageInfoService.getPageInfo(event.url).then(pageInfo => {
+            this.pageInfo = pageInfo;
+          });
+  			} 
   		});
   	}
 }
