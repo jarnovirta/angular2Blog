@@ -43,6 +43,8 @@
     "jsonwebtoken": "^5.5.0",
     "moment": "^2.11.0",
     "mongoose": "^4.2.3",
+    "ng2-bs3-modal": "^0.10.4",
+    "ng2-ckeditor": "^1.1.5",
     "q": "^1.4.1",
     "redis": "^2.4.2",
     "reflect-metadata": "^0.1.8",
@@ -102,6 +104,5 @@
     "@types/node": "^6.0.46",
     "@types/jasmine": "^2.5.36"
   },
-  "repository": {},
-  
+  "repository": {}
 }

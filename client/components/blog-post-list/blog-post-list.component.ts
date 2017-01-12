@@ -5,6 +5,7 @@ import { PostService}  from './../../shared/services/post.service';
 
 import { InfiniteScroll } from 'angular2-infinite-scroll';
 
+
 @Component({
   moduleId: module.id,
   selector: 'blog-post-list',

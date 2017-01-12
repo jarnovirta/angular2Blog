@@ -20,6 +20,8 @@ import { PostService}  from './shared/services/post.service';
 import { WebsocketService } from './shared/services/websocket.service';
 import { BlogPostComponent }  from './components/blog-post/blog-post.component';
 import { InfiniteScrollModule } from 'angular2-infinite-scroll';
+import { Ng2Bs3ModalModule } from 'ng2-bs3-modal/ng2-bs3-modal';
+import { SimpleTinyComponent }  from './components/tinymce/tinymce.component';
 
 @NgModule({
   imports: [
@@ -28,7 +30,8 @@ import { InfiniteScrollModule } from 'angular2-infinite-scroll';
     FormsModule,
     HttpModule,
     InMemoryWebApiModule.forRoot(InMemoryDataService),
-    InfiniteScrollModule
+    InfiniteScrollModule,
+    Ng2Bs3ModalModule
   ],
   declarations: [
     AppComponent,
@@ -39,7 +42,8 @@ import { InfiniteScrollModule } from 'angular2-infinite-scroll';
     HomeComponent,
     ContactComponent,
     AboutComponent,
-    BlogPostComponent
+    BlogPostComponent,
+    SimpleTinyComponent
   ],
   providers: [ PostService, WebsocketService],
   bootstrap: [ AppComponent ]
