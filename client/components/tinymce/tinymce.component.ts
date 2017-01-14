@@ -9,7 +9,6 @@ import {
   OnDestroy,
   AfterViewInit,
   EventEmitter,
-  Subject,
   Input,
   Output
 } from '@angular/core';
