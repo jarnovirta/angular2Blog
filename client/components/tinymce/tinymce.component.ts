@@ -49,7 +49,6 @@ export class SimpleTinyComponent implements AfterViewInit, OnDestroy {
     tinymce.remove(this.editor);
   }
   clearContent() {
-    console.log("CLEARING TINYMCE");
     tinymce.activeEditor.setContent("");
   }
 }

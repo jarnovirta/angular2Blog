@@ -25,8 +25,6 @@ export class EditPostComponent  {
 	}
 	addPost() {
 		this.tinyMCEchild.clearContent();
-		console.log("title:" + this.post.title);
-		console.log("body: " + this.post.body);
 		this.post = new Post();
 		this.editFinished.emit();
 	}
