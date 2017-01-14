@@ -45,8 +45,8 @@ export class PostService implements OnInit {
         else {
           var interval = setInterval(() =>{
               if (this.currentPost) {
-                resolve(this.currentPost);
-                clearInterval(interval);
+                  resolve(this.currentPost);
+                  clearInterval(interval);
               }
             }, 50); 
       }
@@ -69,8 +69,8 @@ export class PostService implements OnInit {
   getPost(postId: number): Promise<Post> {
     const url = this.postsUrl + '/' + postId;
     if (this.posts && this.posts.length > 0) {
-        var post = this.posts.filter(post => post._id == postId)[0];
-        return Promise.resolve(this.posts.filter(post => post._id == postId)[0]);
+        var post = this.posts.filter(post => post.id == postId)[0];
+        return Promise.resolve(this.posts.filter(post => post.id == postId)[0]);
         }
     else {
       return this.http.get(url)
@@ -84,9 +84,45 @@ export class PostService implements OnInit {
     return this.http
       .post(this.postsUrl, JSON.stringify(post), {headers: this.headers})
       .toPromise()
-      .then(res => res.json().data)
+      .then(res => {
+        var resObj = res.json().data;
+        var createdPost = new Post( res.json().data);
+        this.posts.splice(0, 0, createdPost);
+        return createdPost;
+      })
       .catch(this.handleError);
   }
+  update(post: Post): Promise<Post> {
+    const url = `${this.postsUrl}/${post.id}`;
+    return this.http
+      .put(url, JSON.stringify(post), {headers: this.headers})
+      .toPromise()
+      .then(() => post)
+      .catch(this.handleError);
+  }
+  save(post: Post): Promise<Post> {
+    if (post.id) {
+      return this.update(post);
+    }
+    else 
+      {
+        return this.create(post);
+      }
+  }
+  delete(id: number): Promise<void> {
+    const url = `${this.postsUrl}/${id}`;
+    return this.http.delete(url, {headers: this.headers})
+      .toPromise()
+      .then(() => {
+        this.posts.forEach(item => { 
+          if (item.id === id) {
+              this.posts.splice(this.posts.indexOf(item), 1);
+            }
+          });
+        return null;
+      })
+      .catch(this.handleError);
+}
 
 /*
   loadMorePosts(): Promise<Post[]> {
@@ -214,44 +250,7 @@ export class PostService implements OnInit {
         }
     };
 }]);
-/*getHeroes(): Promise<Hero[]> {
-return this.http.get(this.heroesUrl)
-           .toPromise()
-           .then(response => response.json().data as Hero[])
-           .catch(this.handleError);
-}
 
-getHero(id: number): Promise<Hero> {
-const url = `${this.heroesUrl}/${id}`;
-return this.http.get(url)
-  .toPromise()
-  .then(response => response.json().data as Hero)
-  .catch(this.handleError);
-}
 
-delete(id: number): Promise<void> {
-const url = `${this.heroesUrl}/${id}`;
-return this.http.delete(url, {headers: this.headers})
-  .toPromise()
-  .then(() => null)
-  .catch(this.handleError);
-}
-
-create(name: string): Promise<Hero> {
-return this.http
-  .post(this.heroesUrl, JSON.stringify({name: name}), {headers: this.headers})
-  .toPromise()
-  .then(res => res.json().data)
-  .catch(this.handleError);
-}
-
-update(hero: Hero): Promise<Hero> {
-const url = `${this.heroesUrl}/${hero.id}`;
-return this.http
-  .put(url, JSON.stringify(hero), {headers: this.headers})
-  .toPromise()
-  .then(() => hero)
-  .catch(this.handleError);
-}
 */
 

@@ -21,7 +21,7 @@ import { Post } from './../../shared/models/post';
 export class SimpleTinyComponent implements AfterViewInit, OnDestroy {
   @Input() elementId: String;
   @Input() editorContent: String;
-  @Output() onChange = new EventEmitter<any>();
+  @Output() onChange = new EventEmitter<String>();
 
   editor;
 
@@ -29,25 +29,29 @@ export class SimpleTinyComponent implements AfterViewInit, OnDestroy {
     tinymce.init({
       selector: '#' + this.elementId,
       plugins: ['link', 'paste', 'table'],
-      skin_url: 'client/assets/tinyMCEskins/lightgray',
-      content: "shit",
+      skin_url: '/client/assets/tinyMCEskins/lightgray',
       height: "200",
       entity_encoding : "raw",
       setup: editor => {
         this.editor = editor;
-        editor.on('keyup', () => {
-          const content = editor.getContent();
-          this.onChange.emit(content);
-        });
-
+        // 'keyup' detects changes, 'change' detects undo-level changes including
+        // style changes on text.
+        editor.on('keyup', () => this.onChange.emit(editor.getContent()));
+        editor.on('change', () => this.onChange.emit(editor.getContent()));
       },
     });
-    tinymce.activeEditor.setContent(this.editorContent);
+    tinymce.activeEditor.getBody().setAttribute('contenteditable', false);
   }
   ngOnDestroy() {
     tinymce.remove(this.editor);
   }
   clearContent() {
     tinymce.activeEditor.setContent("");
+  }
+  setPost(post: Post) {
+      if (post && post.body) tinymce.activeEditor.setContent(post.body);
+      else tinymce.activeEditor.setContent("");
+      tinymce.activeEditor.getBody().setAttribute('contenteditable', true);
+    
   }
 }

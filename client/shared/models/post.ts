@@ -5,11 +5,20 @@ class Comment {
 }
 
 export class Post {
-	_id: number;
+	_id: number
+	id: number
 	name: string;
 	title: string;
-	body = "";
+	body: string;
 	date: string;
 	comments: Comment[];
 
+	constructor(obj?: Object) {
+		var self = this;
+		if (obj) { 
+			Object.keys(obj).forEach(function(key) {
+				self[key] = obj[key];
+			});
+		}
+	}
 }         

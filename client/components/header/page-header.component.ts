@@ -7,20 +7,16 @@ import { PageInfo }	from './../../shared/models/page-info';
 @Component({
   moduleId: module.id,
   selector: 'page-header',
-  templateUrl: 'page-header.component.html',
-  providers: [PageInfoService] 
+  templateUrl: 'page-header.component.html'
+ 
 })
 
 export class PageHeaderComponent  {
 	pageInfo: PageInfo;
 	constructor(private router: Router, private pageInfoService: PageInfoService) {	}
   	ngOnInit(): void {
-  		this.router.events.subscribe(event => {
-  			if (event instanceof NavigationStart) {
-  				this.pageInfoService.getPageInfo(event.url).then(pageInfo => {
-            this.pageInfo = pageInfo;
-          });
-  			} 
-  		});
+      this.pageInfoService.getPageInfoChangeEmitter().subscribe(pageInfo => {
+        this.pageInfo = pageInfo;
+      });
   	}
 }

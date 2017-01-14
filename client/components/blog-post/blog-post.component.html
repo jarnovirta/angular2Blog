@@ -1,17 +1,21 @@
 <div class="container">
-	<div ng-show="loggedInUser">
-		<button class="btn btn-default customButtom pull-right" ng-click="showDeleteModal()">
+	<div [hidden]="showEditPostDiv">
+		<button class="btn btn-default customButtom pull-right" (click)="deletePost()">
 			<span class="glyphicon glyphicon-remove"></span> Delete
 		</button>
-		<button class="btn btn-default customButtom pull-right" ng-click="showEditModal()">
+		<button class="btn btn-default customButtom pull-right" (click)="editPost()">
 			<span class="glyphicon glyphicon-edit"></span> Edit
 		</button>
-		<br><br><br>
+		
 	</div>
-	
+	<br>
+	<div [hidden]="!showEditPostDiv">
+		<editPost [fetchPostPromise]="fetchPostPromise" (editFinished)="editFinished($event)"></editPost>
+	</div>
+	<br><br>
 	<div class="blogPost">
 		<div class="blogPostBody">
-			<p>{{ post?.body }}</p>
+			<div [innerHTML]="post?.body"></div>
 		</div>
 	</div>
 	<div class="commentSection">

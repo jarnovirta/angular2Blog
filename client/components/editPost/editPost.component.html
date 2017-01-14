@@ -1,11 +1,11 @@
 <h2>Add a new post</h2>
 <div class="form-group">
 	<label for="title">Title</label>
-	<input type="text" id="title" class="form-control" [(ngModel)]="post.title" placeholder="Enter title" maxlength="40">
+	<input *ngIf="post" type="text" id="title" class="form-control" [(ngModel)]="post.title" placeholder="Enter title" maxlength="40">
 	<br>
-	<simple-tiny (onChange)="setPostBody($event)" [editorContent]="post.body" [elementId]="'my-editor-id'"></simple-tiny>
+	<simple-tiny (onChange)="setPostBody($event)" [elementId]="'my-editor-id'"></simple-tiny>
 	<button class="btn btn-default customButtom pull-right" (click)="cancel()"><span class="glyphicon glyphicon-remove"></span> Cancel
 		</button>
-	<button class="btn btn-default customButtom pull-right" (click)="addPost()"><span class="glyphicon glyphicon-ok"></span> Add
+	<button class="btn btn-default customButtom pull-right" (click)="savePost()"><span class="glyphicon glyphicon-ok"></span> Save
 		</button>
 </div>

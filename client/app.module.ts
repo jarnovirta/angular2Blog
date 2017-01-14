@@ -23,6 +23,7 @@ import { InfiniteScrollModule } from 'angular2-infinite-scroll';
 import { Ng2Bs3ModalModule } from 'ng2-bs3-modal/ng2-bs3-modal';
 import { SimpleTinyComponent }  from './components/tinymce/tinymce.component';
 import { EditPostComponent } from './components/editPost/editPost.component';
+import { PageInfoService }  from './shared/services/page-info.service';
 
 @NgModule({
   imports: [
@@ -47,7 +48,7 @@ import { EditPostComponent } from './components/editPost/editPost.component';
     SimpleTinyComponent,
     EditPostComponent
   ],
-  providers: [ PostService, WebsocketService],
+  providers: [ PostService, WebsocketService, PageInfoService],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }
