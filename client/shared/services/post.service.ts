@@ -79,6 +79,15 @@ export class PostService implements OnInit {
       .catch(this.handleError);
     }
   };
+
+  create(post: Post): Promise<Post> {
+    return this.http
+      .post(this.postsUrl, JSON.stringify(post), {headers: this.headers})
+      .toPromise()
+      .then(res => res.json().data)
+      .catch(this.handleError);
+  }
+
 /*
   loadMorePosts(): Promise<Post[]> {
     var defer = $q.defer();

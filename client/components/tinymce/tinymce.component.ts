@@ -4,15 +4,16 @@ declare var tinymce: any;
 // <simple-tiny (textInput)="handlerFunction($event)" 
 //    [elementId]="'my-editor-id'" (onEditorKeyup)="keyupHandlerFunction($event)"></simple-tiny>
 
-
 import {
   Component,
   OnDestroy,
   AfterViewInit,
   EventEmitter,
+  Subject,
   Input,
   Output
 } from '@angular/core';
+import { Post } from './../../shared/models/post';
 
 @Component({
   selector: 'simple-tiny',
@@ -30,19 +31,25 @@ export class SimpleTinyComponent implements AfterViewInit, OnDestroy {
       selector: '#' + this.elementId,
       plugins: ['link', 'paste', 'table'],
       skin_url: 'client/assets/tinyMCEskins/lightgray',
+      content: "shit",
+      height: "200",
+      entity_encoding : "raw",
       setup: editor => {
         this.editor = editor;
         editor.on('keyup', () => {
           const content = editor.getContent();
-          this.editorContent = content;
           this.textInput.emit(content);
-          console.log("Emitter: " + content);
         });
+
       },
     });
+    tinymce.activeEditor.setContent(this.editorContent);
   }
-
   ngOnDestroy() {
     tinymce.remove(this.editor);
+  }
+  clearContent() {
+    console.log("CLEARING TINYMCE");
+    tinymce.activeEditor.setContent("");
   }
 }

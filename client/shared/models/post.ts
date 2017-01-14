@@ -8,7 +8,7 @@ export class Post {
 	_id: number;
 	name: string;
 	title: string;
-	body: string;
+	body = "";
 	date: string;
 	comments: Comment[];
 

@@ -16,16 +16,23 @@ import { InfiniteScroll } from 'angular2-infinite-scroll';
 @Injectable()
 export class BlogPostListComponent implements OnInit {
 	posts: Post[];
+  showAddPostDiv = false;
+  newPost: Post;
 
   constructor(private postService: PostService) {}
   ngOnInit(): void {
     this.getPosts();
+    this.newPost = new Post();
+
   }
 	getPosts(): void {
 	    this.postService.getPosts().then(posts => this.posts = posts.slice(0, 8));
 	  }
   onScrollDown(): void {
     console.log("Load more posts");
+  }
+  setShowAddPostDiv(show: boolean) {
+    this.showAddPostDiv = show;
   }
 }
 
