@@ -22,7 +22,7 @@ import { Post } from './../../shared/models/post';
 export class SimpleTinyComponent implements AfterViewInit, OnDestroy {
   @Input() elementId: String;
   @Input() editorContent: String;
-  @Output() textInput = new EventEmitter<any>();
+  @Output() onChange = new EventEmitter<any>();
 
   editor;
 
@@ -38,7 +38,7 @@ export class SimpleTinyComponent implements AfterViewInit, OnDestroy {
         this.editor = editor;
         editor.on('keyup', () => {
           const content = editor.getContent();
-          this.textInput.emit(content);
+          this.onChange.emit(content);
         });
 
       },
