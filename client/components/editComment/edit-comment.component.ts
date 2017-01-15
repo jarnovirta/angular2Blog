@@ -11,7 +11,6 @@ import { PostService }	from './../../shared/services/post.service';
 
 @Injectable()
 export class EditCommentComponent  {
-	@Input() post: Post;
 	@Input() comment: Comment;
 	@Output() editFinished = new EventEmitter<Comment>();
 
@@ -23,16 +22,12 @@ export class EditCommentComponent  {
 		this.editFinished.emit(null);
 	}
 	onSubmit() {
-		this.comment.postId = this.post.id;
 		this.postService.saveComment(this.comment).then(savedComment => {
 			this.editFinished.emit(savedComment);
 		});
 	}
-	init(post: Post) {
-		this.post = post;
+	init(postId: number) {
 		this.comment = new Comment();
-		this.comment.postId = post.id;
-		console.log("INIT: ");
-		console.dir(this.comment);
+		this.comment.postId = postId;
 	}
 }

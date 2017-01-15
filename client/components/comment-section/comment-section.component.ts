@@ -24,6 +24,6 @@ export class CommentSectionComponent  {
 	}
 	addComment() {
 		this.showAddCommentDiv = true;
-		this.editCommentComponent.init(this.post);
+		this.editCommentComponent.init(this.post.id);
 	}	
 }

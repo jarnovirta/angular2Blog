@@ -133,39 +133,32 @@ export class PostService implements OnInit {
   
   
   createComment(comment: Comment): Promise<Comment> {
-    console.log("*** CREATING COMMENT");
-
+            // REMOVE WHEN SERVER CODE DONE:
+        comment.id = this.tempCommentIDCounter++;
+        //
     return this.http
       .post(this.commentsUrl, JSON.stringify(comment), {headers: this.headers})
       .toPromise()
       .then(res => {
         var savedComment = new Comment(res.json().data);
-        // REMOVE WHEN SERVER CODE DONE:
-        savedComment.id = this.tempCommentIDCounter++;
-        //
         this.updatePostComments(savedComment);
         
         // REMOVE WHEN SERVER CODE DONE:
         this.commentDBPersistREMOVE_WHEN_SERVER_DONE();
-        console.log("createComment() returning comment: ");
-        console.dir(savedComment);
+
         return savedComment;
       })
       .catch(this.handleError);
   }
   updateComment(comment: Comment): Promise<Comment> {
-    console.log("UPDATE COMMENT:");
-    console.dir(comment);
+    const commentUpdateUrl = this.commentsUrl + '/' + comment.id;
     return this.http
-      .put(this.commentsUrl, JSON.stringify(comment), {headers: this.headers})
+      .put(commentUpdateUrl, JSON.stringify(comment), {headers: this.headers})
       .toPromise()
-      .then(res => {
-        var comment = res.json().data;
-        console.log("Saved comment: " + comment);
+      .then(() => {
         this.updatePostComments(comment);
         this.commentDBPersistREMOVE_WHEN_SERVER_DONE();
         return comment;
-
       })
       .catch(this.handleError);
   }
@@ -175,25 +168,60 @@ export class PostService implements OnInit {
     else return this.createComment(comment);
   }
   
+  deleteComment(id: number): Promise<void> {
+    const url = `${this.commentsUrl}/${id}`;
+    return this.http.delete(url, {headers: this.headers})
+      .toPromise()
+      .then(() => {
+        this.removeDeletedCommentFromPosts(id);
+        this.commentDBPersistREMOVE_WHEN_SERVER_DONE();
+        return null;
+      })
+      .catch(this.handleError);
+  }
+  
+  removeDeletedCommentFromPosts(deletedCommentId: number): void {
+    if (this.currentPost) {
+      if (this.currentPost.comments) {
+        this.currentPost.comments.forEach(comment => {
+          if (comment.id == deletedCommentId) {
+            var indexToRemove = this.currentPost.comments.indexOf(comment);
+            this.currentPost.comments.splice(indexToRemove, 1);
+            return;            
+          }
+        })
+      }
+    }
+    if (this.posts) {
+      this.posts.forEach(post => {
+        if (post.comments) {
+          post.comments.forEach(comment => {
+            if (comment.id == deletedCommentId) {
+            var indexToRemove = this.currentPost.comments.indexOf(comment);
+            this.currentPost.comments.splice(indexToRemove, 1);
+            return;            
+          }
+          })
+        }
+      })
+    }
+  }
+
   // Update comments for in-memory posts after comment added/modified 
   updatePostComments(comment: Comment): Post {
-    console.log("updatePostComments() called for comment. ");
-    console.dir(comment);
-
     // Update current post
-    
     if (this.currentPost && this.currentPost.id === comment.postId) {
-        if (this.updateExistingCommentsInPostHelper(this.currentPost, comment)) {
-           console.log("updateExistingComments returned with found comment");
+        var foundCommentInCurrentPost = this.updateExistingCommentsInPostHelper(this.currentPost, comment);
+        if (foundCommentInCurrentPost) {
           return this.currentPost;
         }
-        if (!this.currentPost.comments) this.currentPost.comments = [];
-        this.currentPost.comments.splice(0, 0, comment);
-        console.log("Added new comment to current post comments start");
-        return this.currentPost;
-      }
+        else {
+          if (!this.currentPost.comments) this.currentPost.comments = [];
+          this.currentPost.comments.splice(0, 0, comment);
+          return this.currentPost;
+        }
+      } 
     // Update posts in posts[]
-    else {
         var updatedPost: Post;
         if (this.posts) {
           this.posts.forEach(post => {
@@ -206,12 +234,10 @@ export class PostService implements OnInit {
           });
 
         }
-    }
   }
     // UPDATE POSTS WITH COMMENT AND SAVE
     // REMOVE AFTER SERVER CODE DONE:
   commentDBPersistREMOVE_WHEN_SERVER_DONE() {
-    
     if (this.posts) {
       this.posts.forEach(post => {
         this.save(post);
@@ -222,18 +248,18 @@ export class PostService implements OnInit {
   }
 
   // Helper for updating comments in a post
-  updateExistingCommentsInPostHelper(post: Post, comment: Comment) {
+  updateExistingCommentsInPostHelper(post: Post, comment: Comment): boolean {
     if (post.comments) {
+      var foundComment = false;
       post.comments.forEach(existingComment => {
         if (existingComment.id === comment.id) {
-          existingComment = comment;
-          return true;
+          post.comments.splice(post.comments.indexOf(existingComment), 1, comment);
+          foundComment = true;
         }
-      })
+      });
     }
-    return false;
+    return foundComment;
   }
-
 }
 
 /*
@@ -284,84 +310,8 @@ export class PostService implements OnInit {
     return defer.promise;
   };
 
-    this.query = function() {
-      var defer = $q.defer();
-        if (Model.posts) {
-            defer.resolve(Model.posts);
-            }
-            else {
-                    var topic = 'find_posts';
-                    Websocket.send(topic).then(function (posts) {
-                        Model.posts = posts;
-
-                        defer.resolve(posts);
-
-                    });
-            }
-        
-       return defer.promise;
-    };
-
-    this.create = function(post) {
-        Websocket.send("new_post", post).then(function (createdPost) {
-            if (Model.posts) {
-                Model.posts.unshift(createdPost);
-            }
-            else {
-                Model.posts = [createdPost];
-                }
-            
-        });
-    };
-
-    this.save = function(post) {
-      Websocket.send('update_post', post).then(function (updatedPost) {
-            
-            var oldPost = _.find(Model.posts, function (oldPost) {
-                    return oldPost._id === updatedPost._id;
-                });
-                if (!oldPost && Model.posts) { 
-                    Model.posts.unshift(updatedPost);
-                }
-                
-        });
-    };
-
-    this.remove = function(postToRemove) {
-       Websocket.send('delete_post', postToRemove._id).then(function () {
-            _.remove(Model.posts, function(post) {
-                return post._id === postToRemove._id;
-            });
-        });
-                  
-    };
-    this.WebsocketNewPost = function(postToAdd) {
-        if (Model.posts) {
-            var oldPost = _.find(Model.posts, function (oldPost) {
-                return oldPost._id === postToAdd._id;
-            });
-            if (!oldPost) {
-                Model.posts.unshift(postToAdd);
-                Sound.alert();
-            }
-        }
-    };           
-    this.WebsocketDeletePost = function(postIdToDelete) {
-        _.remove(Model.posts, function(post) {
-            return post._id === postIdToDelete;
-        });
-        
-    };
-    this.WebsocketUpdatePost = function(updatePost) {
-        var postToUpdate = _.find(Model.posts, function(post) {
-                        return post._id === updatePost._id;
-                   });
-        if (Model.posts) {
-            Model.posts[Model.posts.indexOf(postToUpdate)] = updatePost;
-
-        }
-    };
-}]);
+ 
+   
 
 
 */

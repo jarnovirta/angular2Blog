@@ -5,7 +5,7 @@
 	</div>
 	<br>
 	<div [hidden]="!showAddPostDiv">
-		<edit-post (editFinished)="postEdited($event)"></edit-post>
+		<edit-post (editFinished)="editFinished($event)"></edit-post>
 	</div>
     <br>
 	<div class="blogPostPanel" infinite-scroll (scrolled)="onScrollDown()" infiniteScrollDistance="0" infiniteScrollThrottle="300" infiniteScrollDisabled="true">

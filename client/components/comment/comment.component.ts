@@ -13,5 +13,17 @@ import { EditCommentComponent } from './../editComment/edit-comment.component';
 @Injectable()
 export class CommentComponent  {
 	@Input() comment: Comment;
+	private showEditCommentDiv = false;
+
+	constructor(private postService: PostService) { }
 	
+	delete(): void {
+		this.postService.deleteComment(this.comment.id);
+	}
+	edit(): void {
+		this.showEditCommentDiv = true;
+	}
+	commentEdited(comment: Comment): void {
+		this.showEditCommentDiv = false;
+	}
 }

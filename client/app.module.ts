@@ -35,7 +35,7 @@ import { CommentComponent }  from './components/comment/comment.component';
     BrowserModule,
     FormsModule,
     HttpModule,
-    InMemoryWebApiModule.forRoot(InMemoryDataService, { delay: 1500 }),
+    InMemoryWebApiModule.forRoot(InMemoryDataService),
     InfiniteScrollModule,
     Ng2Bs3ModalModule
   ],

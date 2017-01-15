@@ -7,7 +7,7 @@
 		</div>
 	</div>
 	<div [hidden]="!showAddCommentDiv">
-		<edit-comment [post]="post" (editFinished)="commentEdited($event)"></edit-comment>
+		<edit-comment (editFinished)="commentEdited($event)"></edit-comment>
 	</div>
 	<div class="blogPostComment" *ngFor="let comment of post?.comments">
 		<comment [comment]="comment"></comment>
