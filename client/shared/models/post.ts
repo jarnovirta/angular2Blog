@@ -5,7 +5,6 @@ class Comment {
 }
 
 export class Post {
-	_id: number
 	id: number
 	name: string;
 	title: string;

@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, Injectable, Output, ViewChild } from '@angular/core';
+import { Component, AfterViewInit, Injectable, Output, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute, Params }	from '@angular/router';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
@@ -14,9 +14,8 @@ import { PageInfoService }	from './../../shared/services/page-info.service';
   templateUrl: 'blog-post.component.html'
 })
 
-export class BlogPostComponent implements OnInit, AfterViewInit {
+export class BlogPostComponent implements AfterViewInit {
 	private post: Post;
-	fetchPostPromise: Promise<Post>;
 	showEditPostDiv = false;
 
 	@ViewChild(EditPostComponent)
@@ -26,22 +25,15 @@ export class BlogPostComponent implements OnInit, AfterViewInit {
 		private route: ActivatedRoute,
 		private postService: PostService,
 		private pageInfoService: PageInfoService) {};
-	ngOnInit() {
-		this.fetchPostPromise = this.postService.getPost(this.route.snapshot.params['id']);
-		this.fetchPostPromise.then(post => {
+
+	ngAfterViewInit() {
+		this.postService.getPost(this.route.snapshot.params['id']).then(post => {
 			this.post = post;
 			this.postService.setCurrentPost(this.post);
-		}); 
-	}
-	ngAfterViewInit() {
-		this.fetchPostPromise.then(post => {
 			this.editPostComponent.init(this.post);
 		});
 	}
-	getCurrentBlogPost(): Promise<Number> {
-		if (this.post) return Promise.resolve(this.post.id);
-		else return this.fetchPostPromise.then(post => post.id);
-	}
+
 	editPost() {
 		this.showEditPostDiv = true;
 		this.editPostComponent.init(this.post);
@@ -52,13 +44,11 @@ export class BlogPostComponent implements OnInit, AfterViewInit {
 			this.router.navigate(['/']);
 		});
 	}
-	editFinished(result: Promise<Post>) {
+	editFinished(resultPost: Post) {
 	    this.showEditPostDiv = false;
-	    if (result) {
-	      result.then(editedPost => {
-	      	this.post = editedPost;
+	    if (resultPost) {
+	      	this.post = resultPost;
 	      	this.pageInfoService.refreshPageInfo();	      	
-	      });
     }
   }	
 }

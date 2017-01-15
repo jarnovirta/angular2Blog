@@ -16,7 +16,7 @@ export class PageInfoService {
 		// (for page header title change etc. when navigating)
 		this.router.events.subscribe(event => {
   			if (event instanceof NavigationEnd) {
-  				this.refreshPageInfo(router.url);
+  				this.refreshPageInfo();
   			} 
   		});
 	};
@@ -26,8 +26,8 @@ export class PageInfoService {
 		return this.pageInfoChangeEmitter;
 	}
 	// Emit new pageInfoChange event with PageInfo object.
-	refreshPageInfo(url?: string): void {
-		if (!url) var url = this.router.url;
+	refreshPageInfo(): void {
+		var url = this.router.url;
 		if (url.substr(0, 7) == '/posts/' && url.length > 7) {
 				this.postService.getCurrentPost().then(currentPost =>
 						{

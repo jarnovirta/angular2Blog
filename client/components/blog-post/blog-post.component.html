@@ -10,7 +10,7 @@
 	</div>
 	<br>
 	<div [hidden]="!showEditPostDiv">
-		<editPost [fetchPostPromise]="fetchPostPromise" (editFinished)="editFinished($event)"></editPost>
+		<editPost (editFinished)="editFinished($event)"></editPost>
 	</div>
 	<br><br>
 	<div class="blogPost">

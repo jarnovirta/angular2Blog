@@ -42,10 +42,10 @@ export class BlogPostListComponent implements OnInit, AfterViewInit {
   addPost() {
     this.showAddPostDiv = true;
   }
-  editFinished(result: Promise<Post>) {
+  editFinished(resultPost: Post) {
     this.showAddPostDiv = false;
-    if (result) {
-      result.then(() => this.getPosts() );
+    if (resultPost) {
+      this.getPosts() 
     }
   }
 }

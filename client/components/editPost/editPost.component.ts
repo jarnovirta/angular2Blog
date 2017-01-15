@@ -1,4 +1,4 @@
-import { Component, ViewChild, EventEmitter, Input, Output, Injectable, AfterViewInit } from '@angular/core';
+import { Component, ViewChild, EventEmitter, Input, Output, Injectable } from '@angular/core';
 
 import { PostService }  from './../../shared/services/post.service';
 import { Post } from './../../shared/models/post';
@@ -12,9 +12,9 @@ import { SimpleTinyComponent } from './../tinymce/tinymce.component';
 
 @Injectable()
 export class EditPostComponent  {
-	@Output() editFinished = new EventEmitter<Promise<Post>>(); 	// true = created a new post/saved edit, 
+	@Output() editFinished = new EventEmitter<Post>(); 	// true = created a new post/saved edit, 
 																//false = cancelled edit
-	private post: Post;
+	private editPost: Post;
 
 	@ViewChild(SimpleTinyComponent)
 	private tinyMCEchild: SimpleTinyComponent;
@@ -24,28 +24,25 @@ export class EditPostComponent  {
 	constructor(postService: PostService) {
 		this.postService = postService;
 	}
-	ngAfterViewInit() {
-		if (this.fetchPostPromise) this.fetchPostPromise.then(post => {
-			this.tinyMCEchild.setPost(post)
-			this.post = post;
-		});
-	}
+
 	setPostBody(body: string) {
-		this.post.body = body;
+		this.editPost.body = body;
 
 	}
 	cancel() {
 		this.tinyMCEchild.clearContent();
-		this.post = new Post();
+		this.editPost = new Post();
 		this.editFinished.emit(null);
 	}
 	savePost() {
-		this.editFinished.emit(this.postService.save(this.post));
-		this.post = new Post();
-		this.tinyMCEchild.clearContent();
+		this.postService.save(this.editPost).then(savedPost => {
+			this.editPost = new Post();
+			this.tinyMCEchild.clearContent();
+			this.editFinished.emit(savedPost);
+		});
 	}
 	init(post: Post) {
-		this.post = post;
-		this.tinyMCEchild.setPost(post);
+		this.editPost = new Post(post);
+		this.tinyMCEchild.setPost(this.editPost);
 	}
 }
