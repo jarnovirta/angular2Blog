@@ -14,10 +14,6 @@ export class PostService implements OnInit {
                                    // to see post.
   private headers = new Headers({'Content-Type': 'application/json'});
   private postsUrl = 'api/posts';  // URL to web api
-  private commentsUrl = 'api/comments';  // URL to web api
-
-  // REMOVE WHEN SERVER CODE DONE
-  private tempCommentIDCounter = 10;
 
   constructor(private http: Http, private router: Router) { }
 
@@ -131,55 +127,7 @@ export class PostService implements OnInit {
       .catch(this.handleError);
 }
   
-  
-  createComment(comment: Comment): Promise<Comment> {
-            // REMOVE WHEN SERVER CODE DONE:
-        comment.id = this.tempCommentIDCounter++;
-        //
-    return this.http
-      .post(this.commentsUrl, JSON.stringify(comment), {headers: this.headers})
-      .toPromise()
-      .then(res => {
-        var savedComment = new Comment(res.json().data);
-        this.updatePostComments(savedComment);
-        
-        // REMOVE WHEN SERVER CODE DONE:
-        this.commentDBPersistREMOVE_WHEN_SERVER_DONE();
 
-        return savedComment;
-      })
-      .catch(this.handleError);
-  }
-  updateComment(comment: Comment): Promise<Comment> {
-    const commentUpdateUrl = this.commentsUrl + '/' + comment.id;
-    return this.http
-      .put(commentUpdateUrl, JSON.stringify(comment), {headers: this.headers})
-      .toPromise()
-      .then(() => {
-        this.updatePostComments(comment);
-        this.commentDBPersistREMOVE_WHEN_SERVER_DONE();
-        return comment;
-      })
-      .catch(this.handleError);
-  }
-
-  saveComment(comment: Comment): Promise<Comment> {
-    if (comment.id) return this.updateComment(comment);
-    else return this.createComment(comment);
-  }
-  
-  deleteComment(id: number): Promise<void> {
-    const url = `${this.commentsUrl}/${id}`;
-    return this.http.delete(url, {headers: this.headers})
-      .toPromise()
-      .then(() => {
-        this.removeDeletedCommentFromPosts(id);
-        this.commentDBPersistREMOVE_WHEN_SERVER_DONE();
-        return null;
-      })
-      .catch(this.handleError);
-  }
-  
   removeDeletedCommentFromPosts(deletedCommentId: number): void {
     if (this.currentPost) {
       if (this.currentPost.comments) {

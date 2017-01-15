@@ -1,7 +1,7 @@
 import { Component, Input, Injectable, ViewChild } from '@angular/core';
 
 import { Post, Comment }	from './../../shared/models/post';
-import { PostService }	from './../../shared/services/post.service';
+import { CommentService }	from './../../shared/services/comment.service';
 import { EditCommentComponent } from './../editComment/edit-comment.component';
 
 @Component({
@@ -15,10 +15,10 @@ export class CommentComponent  {
 	@Input() comment: Comment;
 	private showEditCommentDiv = false;
 
-	constructor(private postService: PostService) { }
+	constructor(private commentService: CommentService) { }
 	
 	delete(): void {
-		this.postService.deleteComment(this.comment.id);
+		this.commentService.delete(this.comment.id);
 	}
 	edit(): void {
 		this.showEditCommentDiv = true;

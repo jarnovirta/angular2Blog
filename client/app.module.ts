@@ -17,6 +17,7 @@ import { HomeComponent }  from './components/home/home.component';
 import { ContactComponent }   from './components/contact/contact.component';
 import { AboutComponent }   from './components/about/about.component';
 import { PostService}  from './shared/services/post.service';
+import { CommentService}  from './shared/services/comment.service';
 import { WebsocketService } from './shared/services/websocket.service';
 import { BlogPostComponent }  from './components/blog-post/blog-post.component';
 import { InfiniteScrollModule } from 'angular2-infinite-scroll';
@@ -55,7 +56,7 @@ import { CommentComponent }  from './components/comment/comment.component';
     CommentSectionComponent,
     CommentComponent
   ],
-  providers: [ PostService, WebsocketService, PageInfoService],
+  providers: [ PostService, WebsocketService, PageInfoService, CommentService],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }

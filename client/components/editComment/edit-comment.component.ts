@@ -1,7 +1,7 @@
 import { Component, Input, Output, Injectable, EventEmitter } from '@angular/core';
 
 import { Post, Comment }	from './../../shared/models/post';
-import { PostService }	from './../../shared/services/post.service';
+import { CommentService }	from './../../shared/services/comment.service';
 
 @Component({
   moduleId: module.id,
@@ -14,7 +14,7 @@ export class EditCommentComponent  {
 	@Input() comment: Comment;
 	@Output() editFinished = new EventEmitter<Comment>();
 
-	constructor(private postService: PostService) {
+	constructor(private commentService: CommentService) {
 		this.comment = new Comment();
 	}
 
@@ -22,7 +22,7 @@ export class EditCommentComponent  {
 		this.editFinished.emit(null);
 	}
 	onSubmit() {
-		this.postService.saveComment(this.comment).then(savedComment => {
+		this.commentService.save(this.comment).then(savedComment => {
 			this.editFinished.emit(savedComment);
 		});
 	}
