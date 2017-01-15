@@ -4,7 +4,7 @@ import { Router, NavigationStart }  from '@angular/router';
 
 import 'rxjs/add/operator/toPromise';
 
-import { Post }   from './../models/post';
+import { Post, Comment }   from './../models/post';
 
 @Injectable()
 export class PostService implements OnInit {
@@ -14,6 +14,10 @@ export class PostService implements OnInit {
                                    // to see post.
   private headers = new Headers({'Content-Type': 'application/json'});
   private postsUrl = 'api/posts';  // URL to web api
+  private commentsUrl = 'api/comments';  // URL to web api
+
+  // REMOVE WHEN SERVER CODE DONE
+  private tempCommentIDCounter = 10;
 
   constructor(private http: Http, private router: Router) { }
 
@@ -52,6 +56,7 @@ export class PostService implements OnInit {
       }
     });
   }
+
   getPosts(): Promise<Post[]> {
     if (this.posts) return Promise.resolve(this.posts);
     return this.http.get(this.postsUrl)
@@ -114,14 +119,121 @@ export class PostService implements OnInit {
     return this.http.delete(url, {headers: this.headers})
       .toPromise()
       .then(() => {
+        if (this.posts) {
         this.posts.forEach(item => { 
           if (item.id === id) {
               this.posts.splice(this.posts.indexOf(item), 1);
             }
           });
+        }
         return null;
       })
       .catch(this.handleError);
+}
+  
+  
+  createComment(comment: Comment): Promise<Comment> {
+    console.log("*** CREATING COMMENT");
+
+    return this.http
+      .post(this.commentsUrl, JSON.stringify(comment), {headers: this.headers})
+      .toPromise()
+      .then(res => {
+        var savedComment = new Comment(res.json().data);
+        // REMOVE WHEN SERVER CODE DONE:
+        savedComment.id = this.tempCommentIDCounter++;
+        //
+        this.updatePostComments(savedComment);
+        
+        // REMOVE WHEN SERVER CODE DONE:
+        this.commentDBPersistREMOVE_WHEN_SERVER_DONE();
+        console.log("createComment() returning comment: ");
+        console.dir(savedComment);
+        return savedComment;
+      })
+      .catch(this.handleError);
+  }
+  updateComment(comment: Comment): Promise<Comment> {
+    console.log("UPDATE COMMENT:");
+    console.dir(comment);
+    return this.http
+      .put(this.commentsUrl, JSON.stringify(comment), {headers: this.headers})
+      .toPromise()
+      .then(res => {
+        var comment = res.json().data;
+        console.log("Saved comment: " + comment);
+        this.updatePostComments(comment);
+        this.commentDBPersistREMOVE_WHEN_SERVER_DONE();
+        return comment;
+
+      })
+      .catch(this.handleError);
+  }
+
+  saveComment(comment: Comment): Promise<Comment> {
+    if (comment.id) return this.updateComment(comment);
+    else return this.createComment(comment);
+  }
+  
+  // Update comments for in-memory posts after comment added/modified 
+  updatePostComments(comment: Comment): Post {
+    console.log("updatePostComments() called for comment. ");
+    console.dir(comment);
+
+    // Update current post
+    
+    if (this.currentPost && this.currentPost.id === comment.postId) {
+        if (this.updateExistingCommentsInPostHelper(this.currentPost, comment)) {
+           console.log("updateExistingComments returned with found comment");
+          return this.currentPost;
+        }
+        if (!this.currentPost.comments) this.currentPost.comments = [];
+        this.currentPost.comments.splice(0, 0, comment);
+        console.log("Added new comment to current post comments start");
+        return this.currentPost;
+      }
+    // Update posts in posts[]
+    else {
+        var updatedPost: Post;
+        if (this.posts) {
+          this.posts.forEach(post => {
+            if (post.id === comment.postId) {
+              if (this.updateExistingCommentsInPostHelper(post, comment)) return post;
+              if (!post.comments) post.comments = [];
+              post.comments.splice(0, 0, comment);
+              return post;
+            }
+          });
+
+        }
+    }
+  }
+    // UPDATE POSTS WITH COMMENT AND SAVE
+    // REMOVE AFTER SERVER CODE DONE:
+  commentDBPersistREMOVE_WHEN_SERVER_DONE() {
+    
+    if (this.posts) {
+      this.posts.forEach(post => {
+        this.save(post);
+      });
+    }
+     //
+    if (this.currentPost) this.save(this.currentPost);
+  }
+
+  // Helper for updating comments in a post
+  updateExistingCommentsInPostHelper(post: Post, comment: Comment) {
+    if (post.comments) {
+      post.comments.forEach(existingComment => {
+        if (existingComment.id === comment.id) {
+          existingComment = comment;
+          return true;
+        }
+      })
+    }
+    return false;
+  }
+
 }
 
 /*

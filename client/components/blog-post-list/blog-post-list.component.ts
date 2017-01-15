@@ -4,7 +4,7 @@ import { Post }   from './../../shared/models/post';
 import { PostService}  from './../../shared/services/post.service';
 
 import { InfiniteScroll } from 'angular2-infinite-scroll';
-import { EditPostComponent }  from './../editPost/editPost.component';
+import { EditPostComponent }  from './../editPost/edit-post.component';
 
 
 @Component({

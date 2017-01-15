@@ -1,0 +1,6 @@
+<p class="postAndCommentInfoLine">Posted by '{{comment?.userName}}' on {{comment?.date | date : 'EEE d.M.yyyy'}} at {{comment?.date | date : 'H:mm'}}</p>
+<p>{{comment?.body}}</p>
+<div ng-show="loggedInUser" class="btn-group commentEditAndDeleteButtons" role="group" aria-label="...">
+	<a class="btn btn-default" ng-click="showCommentModal(comment)"><span class="glyphicon glyphicon-edit"></span> Edit</a>
+	<a class="btn btn-default" ng-click="showDeleteCommentModal(comment)"><span class="glyphicon glyphicon-remove"></span> Delete</a>
+</div>

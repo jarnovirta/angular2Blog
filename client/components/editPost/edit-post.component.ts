@@ -6,12 +6,12 @@ import { SimpleTinyComponent } from './../tinymce/tinymce.component';
 
 @Component({
   moduleId: module.id,
-  selector: 'editPost',
-  templateUrl: 'editPost.component.html'
+  selector: 'edit-post',
+  templateUrl: 'edit-post.component.html'
 })
 
 @Injectable()
-export class EditPostComponent  {
+export class EditPostComponent {
 	@Output() editFinished = new EventEmitter<Post>(); 	// true = created a new post/saved edit, 
 																//false = cancelled edit
 	private editPost: Post;
@@ -34,7 +34,7 @@ export class EditPostComponent  {
 		this.editPost = new Post();
 		this.editFinished.emit(null);
 	}
-	savePost() {
+	save() {
 		this.postService.save(this.editPost).then(savedPost => {
 			this.editPost = new Post();
 			this.tinyMCEchild.clearContent();

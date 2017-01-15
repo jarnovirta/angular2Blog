@@ -22,8 +22,12 @@ import { BlogPostComponent }  from './components/blog-post/blog-post.component';
 import { InfiniteScrollModule } from 'angular2-infinite-scroll';
 import { Ng2Bs3ModalModule } from 'ng2-bs3-modal/ng2-bs3-modal';
 import { SimpleTinyComponent }  from './components/tinymce/tinymce.component';
-import { EditPostComponent } from './components/editPost/editPost.component';
+import { EditPostComponent } from './components/editPost/edit-post.component';
+import { EditCommentComponent } from './components/editComment/edit-comment.component';
 import { PageInfoService }  from './shared/services/page-info.service';
+import { CommentSectionComponent }  from './components/comment-section/comment-section.component';
+import { CommentComponent }  from './components/comment/comment.component';
+
 
 @NgModule({
   imports: [
@@ -31,7 +35,7 @@ import { PageInfoService }  from './shared/services/page-info.service';
     BrowserModule,
     FormsModule,
     HttpModule,
-    InMemoryWebApiModule.forRoot(InMemoryDataService),
+    InMemoryWebApiModule.forRoot(InMemoryDataService, { delay: 1500 }),
     InfiniteScrollModule,
     Ng2Bs3ModalModule
   ],
@@ -46,7 +50,10 @@ import { PageInfoService }  from './shared/services/page-info.service';
     AboutComponent,
     BlogPostComponent,
     SimpleTinyComponent,
-    EditPostComponent
+    EditPostComponent,
+    EditCommentComponent,
+    CommentSectionComponent,
+    CommentComponent
   ],
   providers: [ PostService, WebsocketService, PageInfoService],
   bootstrap: [ AppComponent ]

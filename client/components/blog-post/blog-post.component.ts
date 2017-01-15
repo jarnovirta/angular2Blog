@@ -5,8 +5,9 @@ import 'rxjs/add/operator/switchMap';
 
 import { Post }	from './../../shared/models/post';
 import { PostService } from './../../shared/services/post.service';
-import { EditPostComponent }	from './../editPost/editPost.component';
+import { EditPostComponent }	from './../editPost/edit-post.component';
 import { PageInfoService }	from './../../shared/services/page-info.service';
+
 
 @Component({
   moduleId: module.id,
@@ -17,7 +18,7 @@ import { PageInfoService }	from './../../shared/services/page-info.service';
 export class BlogPostComponent implements AfterViewInit {
 	private post: Post;
 	showEditPostDiv = false;
-
+	
 	@ViewChild(EditPostComponent)
 	private editPostComponent: EditPostComponent;
 
@@ -44,11 +45,11 @@ export class BlogPostComponent implements AfterViewInit {
 			this.router.navigate(['/']);
 		});
 	}
-	editFinished(resultPost: Post) {
+	postEdited(resultPost: Post) {
 	    this.showEditPostDiv = false;
 	    if (resultPost) {
 	      	this.post = resultPost;
 	      	this.pageInfoService.refreshPageInfo();	      	
-    }
-  }	
+	    }
+	  }
 }

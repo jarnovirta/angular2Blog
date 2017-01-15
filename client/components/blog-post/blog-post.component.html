@@ -10,7 +10,7 @@
 	</div>
 	<br>
 	<div [hidden]="!showEditPostDiv">
-		<editPost (editFinished)="editFinished($event)"></editPost>
+		<edit-post (editFinished)="postEdited($event)"></edit-post>
 	</div>
 	<br><br>
 	<div class="blogPost">
@@ -18,20 +18,5 @@
 			<div [innerHTML]="post?.body"></div>
 		</div>
 	</div>
-	<div class="commentSection">
-		<div class="commentSectionHeading">
-			<h2>Comments:</h2>
-			<button class="btn btn-default customButtom pull-right" ng-click="addComment()"><span class="glyphicon glyphicon-plus"></span> Add a comment
-			</button>
-		</div>
-
-		<div class="blogPostComment" *ngFor="let comment of post?.comments">
-			<p class="postAndCommentInfoLine">Posted by '{{comment?.userName}}' on {{comment?.date | date : 'EEE d.M.yyyy'}} at {{comment?.date | date : 'H:mm'}}</p>
-			<p>{{comment?.body}}</p>
-			<div ng-show="loggedInUser" class="btn-group commentEditAndDeleteButtons" role="group" aria-label="...">
-				<a class="btn btn-default" ng-click="showCommentModal(comment)"><span class="glyphicon glyphicon-edit"></span> Edit</a>
-				<a class="btn btn-default" ng-click="showDeleteCommentModal(comment)"><span class="glyphicon glyphicon-remove"></span> Delete</a>
-			</div>
-		</div>
-	</div>
+	<comment-section [post]="post"></comment-section>
 </div>		
