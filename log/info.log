@@ -1,0 +1,15 @@
+{"level":"info","message":"HTTP SERVER 24333: STARTING WEB SERVER","timestamp":"2017-01-16T18:56:33.122Z"}
+{"level":"info","message":"HTTP SERVER 24333: Web server listening on port 3012. Connecting to Seaport at localhost, port 9090","timestamp":"2017-01-16T18:56:33.129Z"}
+{"level":"info","message":"DATABASE SERVICE 24333: MongoDB connected, DB host: mongodb://localhost:27017/jvdotcom","timestamp":"2017-01-16T18:56:33.130Z"}
+{"level":"info","message":"HTTP SERVER 24332: STARTING WEB SERVER","timestamp":"2017-01-16T18:56:33.130Z"}
+{"level":"info","message":"HTTP SERVER 24332: Web server listening on port 3011. Connecting to Seaport at localhost, port 9090","timestamp":"2017-01-16T18:56:33.153Z"}
+{"level":"info","message":"DATABASE SERVICE 24332: MongoDB connected, DB host: mongodb://localhost:27017/jvdotcom","timestamp":"2017-01-16T18:56:33.153Z"}
+{"level":"info","message":"HTTP SERVER 24326: STARTING WEB SERVER","timestamp":"2017-01-16T18:56:33.251Z"}
+{"level":"info","message":"HTTP SERVER 24326: Web server listening on port 3010. Connecting to Seaport at localhost, port 9090","timestamp":"2017-01-16T18:56:33.252Z"}
+{"level":"info","message":"DATABASE SERVICE 24326: MongoDB connected, DB host: mongodb://localhost:27017/jvdotcom","timestamp":"2017-01-16T18:56:33.252Z"}
+{"level":"info","message":"PROXY SERVER 24371: STARTING PROXY SERVER","timestamp":"2017-01-16T18:56:33.523Z"}
+{"level":"info","message":"PROXY SERVER 24371: PROXY SERVER STARTED ON PORT 80","timestamp":"2017-01-16T18:56:33.523Z"}
+{"level":"info","message":"DATABASE SERVICE 24371: MongoDB connected, DB host: mongodb://localhost:27017/jvdotcom","timestamp":"2017-01-16T18:56:33.524Z"}
+{"level":"info","message":"HTTP SERVER 24344: STARTING WEB SERVER","timestamp":"2017-01-16T18:56:33.669Z"}
+{"level":"info","message":"HTTP SERVER 24344: Web server listening on port 3013. Connecting to Seaport at localhost, port 9090","timestamp":"2017-01-16T18:56:33.670Z"}
+{"level":"info","message":"DATABASE SERVICE 24344: MongoDB connected, DB host: mongodb://localhost:27017/jvdotcom","timestamp":"2017-01-16T18:56:33.670Z"}

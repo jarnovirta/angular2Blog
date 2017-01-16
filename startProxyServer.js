@@ -21,6 +21,7 @@ var startProxyServer = function() {
         log(service, 'error', "PROXY SERVER EXITED");
     });
      proxy_child.stderr.on('data', function (data) {
+        console.log(data);
         log(service, 'error', 'PROXY SERVER ERROR: ' + data);
     });
     proxy_child.stdout.on('data', function(data) {

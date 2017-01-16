@@ -1,7 +1,7 @@
 "use strict";
 
 require("./database");
-var Post = require('./../../app/models/post');
+var Post = require('./../models/post');
 var redisService = require('./redisService');
 
 var log = require('./logFunction.js');

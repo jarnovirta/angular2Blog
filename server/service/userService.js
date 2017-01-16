@@ -1,5 +1,5 @@
 "use strict";
-
+/*
 var config = require('./../config');
 var db = require("./database");
 var User = require('./../../app/models/user');
@@ -11,9 +11,9 @@ var redis = require('./redisService');
 
 var log = require('./logFunction.js');
 var service = 'USER SERVICE';
-
+*/
 exports.create = function(newUser) {
-	var user = new User({
+/*	var user = new User({
 		username: newUser.username,
 		password: bcrypt.hashSync(newUser.password, 10),
 		role: newUser.role
@@ -25,10 +25,10 @@ exports.create = function(newUser) {
 		}
 		
 	});
-	
-};
+	*/
+}; 
 exports.findUserByUserName = function(username, callback) {
-	User.findOne({ username: username }, function(err, foundUser) {
+/*	User.findOne({ username: username }, function(err, foundUser) {
 		if (err) {
 			log(service, 'error', err);
 			callback(err);
@@ -37,12 +37,12 @@ exports.findUserByUserName = function(username, callback) {
 			callback(null, foundUser);
 		}
 
-	});
+	});*/
 
 };
 exports.verifyAuthentication = function(decodeToken) {
 	var deferred = q.defer();
-	var availableServers = seaport.query('load-balancer-proxy');
+/*	var availableServers = seaport.query('load-balancer-proxy');
 	
 	// Send verification request via proxy to user-auth-service.
 	
@@ -76,5 +76,5 @@ exports.verifyAuthentication = function(decodeToken) {
 	else {
 		deferred.resolve(false);
 	}
-	return deferred.promise;
+	*/return deferred.promise; 
 };

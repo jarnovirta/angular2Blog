@@ -2,6 +2,7 @@
 
 var config = require('./config');
 var express = require('express');
+var router = express.Router();    
 var postService = require('./service/blogPostService');
 var bodyParser = require('body-parser');
 var app = express();
@@ -13,99 +14,104 @@ var log = require('./service/logFunction.js');
 var service = 'HTTP SERVER';
 
 // Set http server port to a port provided by startWebServers.js. Port range 3010-3019.
+
 var port = seaport.register('webapp-service', { port: process.env.WEB_SERVER_PORT});
 
 log(service, 'info', 'STARTING WEB SERVER');
 
 app.use(bodyParser.json());
 
-module.exports.startServer = function() {
+// middleware to use for all requests
+router.use(function(req, res, next) {
+    // do logging
+    console.log('Received request.');
+    next(); // make sure we go to the next routes and don't stop here
+});
+
+// module.exports.startServer = function() {
 	app.use(compression());
 	app.use(express.static(__dirname + '/../'));
 	app.use(bodyParser.json());
 
-	app.get('/posts', function(req, res) {
-		res.setHeader('content-type', 'application/json');
-		var requestParameters = req.body;
+router.route('/api/posts')
+	.get(function(req, res) {
+		console.log("GET POSTS");
 		var requestedNumberOfPosts;
 		var olderThanPostId;
-		if (requestParameters.olderThanPostId) {
-			olderThanPostId = requestParameters.olderThanPostId;
+		/* if (message.data.olderThanPostId) {
+			olderThanPostId = message.data.olderThanPostId;
+		} 
+		if (message.data.requestedNumberOfPosts) {
+			requestedNumberOfPosts = message.data.requestedNumberOfPosts;
 		}
-		if (requestParameters.requestedNumberOfPosts) {
-			requestedNumberOfPosts = requestParameters.requestedNumberOfPosts;
-		}
-		else {
+		else { */
 			requestedNumberOfPosts = 5;
-		}
+		// }
 		postService.findPosts(
-			requestedNumberOfPosts,
-			function (posts) {
-				res.send(posts);
-			}, 
-			olderThanPostId
-		);
+				requestedNumberOfPosts,
+				function (posts) {
+					res.json(posts);
+				}, olderThanPostId
+			);
+
+				/*
+					app.get('/posts', function(req, res) {
+						res.setHeader('content-type', 'application/json');
+						var requestParameters = req.body;
+						var requestedNumberOfPosts;
+						var olderThanPostId;
+						if (requestParameters.olderThanPostId) {
+							olderThanPostId = requestParameters.olderThanPostId;
+						}
+						if (requestParameters.requestedNumberOfPosts) {
+							requestedNumberOfPosts = requestParameters.requestedNumberOfPosts;
+						}
+						else {
+							requestedNumberOfPosts = 5;
+						}
+						postService.findPosts(
+							requestedNumberOfPosts,
+							function (posts) {
+								res.send(posts);
+							}, 
+							olderThanPostId
+						);
+					});
+					*/
+	})
+    // create a bear (accessed at POST http://localhost:8080/api/bears)
+    .post(function(req, res) {
+        /*
+        var bear = new Post();      // create a new instance of the Bear model
+        bear.name = req.body.name;  // set the bears name (comes from the request)
+
+        // save the bear and check for errors
+        bear.save(function(err) {
+            if (err)
+                res.send(err);
+
+            res.json({ message: 'Bear created!' });
+        });
+        */
+    })
+    .put(function(req, res) {
+    	console.log("PUT POSTS");
+    })
+    .delete(function(req, res) {
+    	console.log("DELETE POST");
+    });
+	
+	router.route(['/', '/home'])
+		.get(function(req, res) {
+	    res.sendFile('./index.html' , { root : __dirname + "/../"});
 	});
 
-	// Handle requests for web pages.
-	app.get('/*', function (req, res) {
-		res.sendFile('app/index.html' , { root : __dirname + "/../"});		
-		/*res.setHeader('content-type', 'text/html');
-		// If request is not from a HTML Prerendering Server, but a client,
-		// forward the request to a Prerendering Server, which includes in index.html 
-		// the dynamic content for the requested page. Subsequent navigating will be through
-		// dynamic AngularJS requests.
-
-		if (req.headers['x-html-prerender'] != 'true') {
-			req.headers['x-html-prerender'] = 'true';
-			req.headers['x-requested-url'] = req.url;
-			var options = {
-				host: req.connection.remoteAddress,
-				port: 80,
-				path: '/prerender',
-				method: 'GET',
-				headers: req.headers
-			};
-
-			var htmlPrerenderResponse;
-			var callback = function(response) {
-			    htmlPrerenderResponse = response;
-			    // set encoding
-			    htmlPrerenderResponse.setEncoding('utf8');
-
-			    // wait for data
-			    htmlPrerenderResponse.on('data', function(htmlResponse){
-			      res.write(htmlResponse);
-			    });
-
-			    htmlPrerenderResponse.on('close', function() {
-			      res.end();
-			    });
-
-			    htmlPrerenderResponse.on('end', function() {
-			      res.end();
-			    });
-			  };
-			http.request(options, callback).on('error', function(e) {
-			    // we got an error, return 500 error to client and log error
-			    console.log(e.message);
-			    res.writeHead(500);
-			    res.end();
-			    htmlPrerenderResponse.end();
-			  }).end();
-		}
-
-		// If request is coming from HTML Prerender Server (PhantomJS), send index.html for rendering
-		else {
-			
-			
-		}*/
-	});
-
-	var server = app.listen(port, function () {
+	app.use('/', router);
+	
+	var server = app.listen(8080, function () {
 		log(service, 'info', 'Web server listening on port ' + port + '.' +
 				' Connecting to Seaport at ' + config.seaport.host + ', port ' + config.seaport.port);
 		
 	});
-	websockets.connect(server);
-};
+	// websockets.connect(server);
+// };

@@ -58,7 +58,7 @@ export class PostService implements OnInit {
     return this.http.get(this.postsUrl)
        .toPromise()
        .then(response => { 
-          var responsePosts = response.json().data as Post[];
+          var responsePosts = response.json() as Post[];
           this.posts = responsePosts;
           return responsePosts;
        })

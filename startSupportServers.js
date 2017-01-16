@@ -34,6 +34,7 @@ var startSeaportServer = function() {
         log(service, 'error', 'SEAPORT ERROR: ' + data);
     });
     seaport_child.on('close', function(code) {
+        console.log(code);
         log(service, 'info', 'SEAPORT EXITED WITH CODE: ' + code);
         exit(1);
     });
@@ -59,43 +60,7 @@ var startUserAuthServer = function() {
     });
 }
 
-// HTTP PRERENDER SERVER STARTUP
 
-var startHtmlPrerenderServerWorker = function(port) {
-    var httpPrerenderServer_child = spawn("phantomjs server/htmlPrerenderServer.js " + port, function(error) {
-        if (error) {
-            log(service, 'error', 'HTML PRERENDER SERVER ERROR: ' + error);
-        }
-        log(service, 'info', "HTML PRERENDER SERVER EXITED");
-    });
-    httpPrerenderServer_child.port = port;
-    httpPrerenderServer_child.stderr.on('data', function (data) {
-        log(service, 'error', 'HTML PRERENDER SERVER ERROR: ' + data);
-        console.log(data);
-    });
-    httpPrerenderServer_child.stdout.on('data', function (data) {
-        log(service, 'debug', 'HTML PRERENDER SERVER: ' + data);
-        console.log(data);
-        
-    });
-    httpPrerenderServer_child.on('close', function(code) {
-        log(service, 'info', 'HTML PRERENDER SERVER EXITED WITH CODE: ' + code);
-        console.log("HTML prerender server on port " + httpPrerenderServer_child.port + " crashed");
-        seaport.free(httpPrerenderServer_child.port);
-        startHtmlPrerenderServerWorker(httpPrerenderServer_child.port);
-    });
-    seaport.register('html-prerender-server', { port: httpPrerenderServer_child.port, id: httpPrerenderServer_child.port});
-}
-var startHttpPrerenderServer = function() {
-    var cpus = os.cpus().length;
-    log(service, 'info' + '*** STARTING ' + cpus + ' HTML PRERENDER SERVERS ***');
-    var port = 3030;
-    
-    for (var i = 0; i < cpus; i++) {
-        startHtmlPrerenderServerWorker(port++);
-    } 
-    
-}
 // LOG SERVICE STARTUP
 
 var startLogService = function() {
@@ -121,7 +86,6 @@ var startLogService = function() {
 
 startLogService();
 startSeaportServer();
-startUserAuthServer();
-startHttpPrerenderServer();    
+// startUserAuthServer();
 
 console.log("\nSUPPORT SERVERS STARTED!");

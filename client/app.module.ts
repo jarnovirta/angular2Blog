@@ -5,9 +5,6 @@ import { HttpModule }    from '@angular/http';
 
 import { AppRoutingModule } from './app-routing.module';
 
-import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
-import { InMemoryDataService }  from './shared/services/in-memory-data.service';
-
 import { AppComponent }         from './components/app/app.component';
 import { PageHeaderComponent } 	from './components/header/page-header.component';
 import { PageFooterComponent }   from './components/footer/page-footer.component';
@@ -36,7 +33,6 @@ import { CommentComponent }  from './components/comment/comment.component';
     BrowserModule,
     FormsModule,
     HttpModule,
-    InMemoryWebApiModule.forRoot(InMemoryDataService),
     InfiniteScrollModule,
     Ng2Bs3ModalModule
   ],
