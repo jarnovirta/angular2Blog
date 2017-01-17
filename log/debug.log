@@ -1,25 +1,23 @@
-{"level":"info","message":"HTTP SERVER 24333: STARTING WEB SERVER","timestamp":"2017-01-16T18:56:33.129Z"}
-{"level":"info","message":"HTTP SERVER 24333: Web server listening on port 3012. Connecting to Seaport at localhost, port 9090","timestamp":"2017-01-16T18:56:33.129Z"}
-{"level":"info","message":"DATABASE SERVICE 24333: MongoDB connected, DB host: mongodb://localhost:27017/jvdotcom","timestamp":"2017-01-16T18:56:33.130Z"}
-{"level":"info","message":"HTTP SERVER 24332: STARTING WEB SERVER","timestamp":"2017-01-16T18:56:33.130Z"}
-{"level":"info","message":"HTTP SERVER 24332: Web server listening on port 3011. Connecting to Seaport at localhost, port 9090","timestamp":"2017-01-16T18:56:33.153Z"}
-{"level":"info","message":"DATABASE SERVICE 24332: MongoDB connected, DB host: mongodb://localhost:27017/jvdotcom","timestamp":"2017-01-16T18:56:33.153Z"}
-{"level":"info","message":"HTTP SERVER 24326: STARTING WEB SERVER","timestamp":"2017-01-16T18:56:33.251Z"}
-{"level":"info","message":"HTTP SERVER 24326: Web server listening on port 3010. Connecting to Seaport at localhost, port 9090","timestamp":"2017-01-16T18:56:33.252Z"}
-{"level":"info","message":"DATABASE SERVICE 24326: MongoDB connected, DB host: mongodb://localhost:27017/jvdotcom","timestamp":"2017-01-16T18:56:33.252Z"}
-{"level":"info","message":"PROXY SERVER 24371: STARTING PROXY SERVER","timestamp":"2017-01-16T18:56:33.523Z"}
-{"level":"info","message":"PROXY SERVER 24371: PROXY SERVER STARTED ON PORT 80","timestamp":"2017-01-16T18:56:33.523Z"}
-{"level":"info","message":"DATABASE SERVICE 24371: MongoDB connected, DB host: mongodb://localhost:27017/jvdotcom","timestamp":"2017-01-16T18:56:33.524Z"}
-{"level":"web","message":"PROXY SERVER 24371: Proxying request from client ip ::ffff:127.0.0.1","timestamp":"2017-01-16T18:56:33.533Z"}
-{"level":"debug","message":"PROXY SERVER 24371: Proxying request. Requested service: webapp-service","timestamp":"2017-01-16T18:56:33.534Z"}
-{"level":"debug","message":"PROXY SERVER 24371: Found 3 servers for the request.","timestamp":"2017-01-16T18:56:33.534Z"}
-{"level":"debug","message":"PROXY SERVER 24371: Selecting a server from Seaport service","timestamp":"2017-01-16T18:56:33.534Z"}
-{"level":"debug","message":"PROXY SERVER 24371: Selected server 0","timestamp":"2017-01-16T18:56:33.534Z"}
-{"level":"info","message":"HTTP SERVER 24344: STARTING WEB SERVER","timestamp":"2017-01-16T18:56:33.670Z"}
-{"level":"info","message":"HTTP SERVER 24344: Web server listening on port 3013. Connecting to Seaport at localhost, port 9090","timestamp":"2017-01-16T18:56:33.670Z"}
-{"level":"info","message":"DATABASE SERVICE 24344: MongoDB connected, DB host: mongodb://localhost:27017/jvdotcom","timestamp":"2017-01-16T18:56:33.670Z"}
-{"level":"web","message":"PROXY SERVER 24371: Proxying request from client ip ::ffff:127.0.0.1","timestamp":"2017-01-16T18:56:33.676Z"}
-{"level":"debug","message":"PROXY SERVER 24371: Proxying request. Requested service: webapp-service","timestamp":"2017-01-16T18:56:33.676Z"}
-{"level":"debug","message":"PROXY SERVER 24371: Found 4 servers for the request.","timestamp":"2017-01-16T18:56:33.676Z"}
-{"level":"debug","message":"PROXY SERVER 24371: Selecting a server from Seaport service","timestamp":"2017-01-16T18:56:33.677Z"}
-{"level":"debug","message":"PROXY SERVER 24371: Selected server 1","timestamp":"2017-01-16T18:56:33.677Z"}
+{"level":"info","message":"DATABASE SERVICE 16480: MongoDB connected, DB host: mongodb://localhost:27017/jvdotcom","timestamp":"2017-01-17T18:38:50.095Z"}
+{"level":"info","message":"HTTP SERVER 16532: STARTING WEB SERVER","timestamp":"2017-01-17T18:38:51.621Z"}
+{"level":"info","message":"HTTP SERVER 16532: Web server listening on port 3011. Connecting to Seaport at localhost, port 9090","timestamp":"2017-01-17T18:38:51.623Z"}
+{"level":"info","message":"DATABASE SERVICE 16532: MongoDB connected, DB host: mongodb://localhost:27017/jvdotcom","timestamp":"2017-01-17T18:38:51.623Z"}
+{"level":"info","message":"HTTP SERVER 16526: STARTING WEB SERVER","timestamp":"2017-01-17T18:38:52.067Z"}
+{"level":"info","message":"HTTP SERVER 16526: Web server listening on port 3010. Connecting to Seaport at localhost, port 9090","timestamp":"2017-01-17T18:38:52.077Z"}
+{"level":"info","message":"DATABASE SERVICE 16526: MongoDB connected, DB host: mongodb://localhost:27017/jvdotcom","timestamp":"2017-01-17T18:38:52.086Z"}
+{"level":"info","message":"HTTP SERVER 16533: STARTING WEB SERVER","timestamp":"2017-01-17T18:38:52.342Z"}
+{"level":"info","message":"HTTP SERVER 16533: Web server listening on port 3012. Connecting to Seaport at localhost, port 9090","timestamp":"2017-01-17T18:38:52.361Z"}
+{"level":"info","message":"DATABASE SERVICE 16533: MongoDB connected, DB host: mongodb://localhost:27017/jvdotcom","timestamp":"2017-01-17T18:38:52.369Z"}
+{"level":"info","message":"HTTP SERVER 16539: STARTING WEB SERVER","timestamp":"2017-01-17T18:38:52.452Z"}
+{"level":"info","message":"HTTP SERVER 16539: Web server listening on port 3013. Connecting to Seaport at localhost, port 9090","timestamp":"2017-01-17T18:38:52.452Z"}
+{"level":"info","message":"DATABASE SERVICE 16539: MongoDB connected, DB host: mongodb://localhost:27017/jvdotcom","timestamp":"2017-01-17T18:38:52.453Z"}
+{"level":"info","message":"USER AUTHENTICATION SERVER 16555: Registering to Seaport on localhost","timestamp":"2017-01-17T18:38:52.548Z"}
+{"level":"info","message":"DATABASE SERVICE 16555: MongoDB connected, DB host: mongodb://localhost:27017/jvdotcom","timestamp":"2017-01-17T18:38:52.548Z"}
+{"level":"info","message":"PROXY SERVER 16610: STARTING PROXY SERVER","timestamp":"2017-01-17T18:38:52.925Z"}
+{"level":"info","message":"PROXY SERVER 16610: PROXY SERVER STARTED ON PORT 80","timestamp":"2017-01-17T18:38:52.925Z"}
+{"level":"info","message":"DATABASE SERVICE 16610: MongoDB connected, DB host: mongodb://localhost:27017/jvdotcom","timestamp":"2017-01-17T18:38:52.926Z"}
+{"level":"web","message":"PROXY SERVER 16610: Proxying request from client ip ::ffff:127.0.0.1","timestamp":"2017-01-17T18:38:52.930Z"}
+{"level":"debug","message":"PROXY SERVER 16610: Proxying request. Requested service: webapp-service","timestamp":"2017-01-17T18:38:52.931Z"}
+{"level":"debug","message":"PROXY SERVER 16610: Found 4 servers for the request.","timestamp":"2017-01-17T18:38:52.931Z"}
+{"level":"debug","message":"PROXY SERVER 16610: Selecting a server from Seaport service","timestamp":"2017-01-17T18:38:52.931Z"}
+{"level":"debug","message":"PROXY SERVER 16610: Selected server 0","timestamp":"2017-01-17T18:38:52.932Z"}

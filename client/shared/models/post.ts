@@ -1,6 +1,6 @@
 export class Comment {
-	id: number;
-	postId: number;
+	_id: string;
+	postId: string;
 	date: string;
 	body: string;
 	userName: string;
@@ -15,7 +15,7 @@ export class Comment {
 	}
 }
 export class Post {
-	id: number
+	_id: string;
 	name: string;
 	title: string;
 	body: string;

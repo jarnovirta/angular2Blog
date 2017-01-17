@@ -18,7 +18,7 @@ export class CommentComponent  {
 	constructor(private commentService: CommentService) { }
 	
 	delete(): void {
-		this.commentService.delete(this.comment.id);
+		this.commentService.delete(this.comment._id);
 	}
 	edit(): void {
 		this.showEditCommentDiv = true;

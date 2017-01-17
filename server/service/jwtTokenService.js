@@ -2,7 +2,7 @@
 
 var bcrypt = require('bcrypt');
 var salt = bcrypt.genSaltSync(10);
-var Key = require('./../../app/models/key');
+var Key = require('./../models/key');
 var jwt = require('jsonwebtoken');
 var redisService = require('./redisService');
 var log = require('./logFunction.js');

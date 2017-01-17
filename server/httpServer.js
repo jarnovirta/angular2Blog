@@ -21,21 +21,13 @@ log(service, 'info', 'STARTING WEB SERVER');
 
 app.use(bodyParser.json());
 
-// middleware to use for all requests
-router.use(function(req, res, next) {
-    // do logging
-    console.log('Received request.');
-    next(); // make sure we go to the next routes and don't stop here
-});
-
-// module.exports.startServer = function() {
+module.exports.startServer = function() {
 	app.use(compression());
 	app.use(express.static(__dirname + '/../'));
 	app.use(bodyParser.json());
 
 router.route('/api/posts')
 	.get(function(req, res) {
-		console.log("GET POSTS");
 		var requestedNumberOfPosts;
 		var olderThanPostId;
 		/* if (message.data.olderThanPostId) {
@@ -81,6 +73,7 @@ router.route('/api/posts')
 	})
     // create a bear (accessed at POST http://localhost:8080/api/bears)
     .post(function(req, res) {
+        
         /*
         var bear = new Post();      // create a new instance of the Bear model
         bear.name = req.body.name;  // set the bears name (comes from the request)
@@ -101,17 +94,51 @@ router.route('/api/posts')
     	console.log("DELETE POST");
     });
 	
-	router.route(['/', '/home'])
-		.get(function(req, res) {
-	    res.sendFile('./index.html' , { root : __dirname + "/../"});
+
+router.route('/api/posts/:id') 
+	.get(function(req, res) {
+		postService.findPostById(req.params.id, function(foundPost) {
+			res.json(foundPost);
+		});
+}); 
+
+router.route('/api/comments')
+	.post(function(req, res) {
+		var newComment = req.body;
+		postService.findPostById(newComment.postId, function(dbPost) {
+				if (dbPost.comments) {
+					dbPost.comments.splice(0, 0, newComment);
+				}
+				else {
+					dbPost.comments = [newComment];
+				}
+				postService.save(dbPost, function(savedPost) {
+						res.send(savedPost.comments[0]);
+					});
+			});
+	});
+router.route('/api/comments/:id')
+	.delete(function(req, res) {
+		postService.deleteComment(req.params.id, function(err) {
+			if (err) {
+				console.log("Database error: " + err)
+				res.sendStatus(500);
+			}
+			else res.sendStatus(200);
+		});
 	});
 
-	app.use('/', router);
+router.route(['/*'])
+	.get(function(req, res) {
+    res.sendFile('./index.html' , { root : __dirname + "/../"});
+});
+
+app.use('/', router);
+
+var server = app.listen(port, function () {
+	log(service, 'info', 'Web server listening on port ' + port + '.' +
+			' Connecting to Seaport at ' + config.seaport.host + ', port ' + config.seaport.port);
 	
-	var server = app.listen(8080, function () {
-		log(service, 'info', 'Web server listening on port ' + port + '.' +
-				' Connecting to Seaport at ' + config.seaport.host + ', port ' + config.seaport.port);
-		
-	});
-	// websockets.connect(server);
-// };
+});
+// websockets.connect(server);
+};

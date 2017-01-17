@@ -29,7 +29,6 @@ var validateUser = function(username, password, callback) {
 		log(service, 'error', 'Password comparition failed.');
 		callback(null);
 	});
-
 };
 
 app.post('/auth/session', function (req, res) {

@@ -3,6 +3,7 @@
 require("./database");
 var Post = require('./../models/post');
 var redisService = require('./redisService');
+var mongoose = require('mongoose');
 
 var log = require('./logFunction.js');
 var service = 'BLOG POST SERVICE';
@@ -73,6 +74,10 @@ exports.save = function(editedPost, callback) {
 				callback(updatedPost);
 			});
 			});
-			
 		});
 };
+exports.deleteComment = function(idToRemove, callback) {
+	Post.findOneAndUpdate({ "comments._id": idToRemove },
+      { $pull: { comments: {_id: idToRemove }}}, 
+      callback);
+}

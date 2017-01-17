@@ -86,6 +86,6 @@ var startLogService = function() {
 
 startLogService();
 startSeaportServer();
-// startUserAuthServer();
+startUserAuthServer();
 
 console.log("\nSUPPORT SERVERS STARTED!");

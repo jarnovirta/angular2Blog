@@ -70,8 +70,8 @@ export class PostService implements OnInit {
   getPost(postId: number): Promise<Post> {
     const url = this.postsUrl + '/' + postId;
     if (this.posts && this.posts.length > 0) {
-        var post = this.posts.filter(post => post.id == postId)[0];
-        return Promise.resolve(this.posts.filter(post => post.id == postId)[0]);
+        var post = this.posts.filter(post => post._id == postId)[0];
+        return Promise.resolve(this.posts.filter(post => post._id == postId)[0]);
         }
     else {
       return this.http.get(url)
@@ -94,7 +94,7 @@ export class PostService implements OnInit {
       .catch(this.handleError);
   }
   update(post: Post): Promise<Post> {
-    const url = `${this.postsUrl}/${post.id}`;
+    const url = `${this.postsUrl}/${post._id}`;
     return this.http
       .put(url, JSON.stringify(post), {headers: this.headers})
       .toPromise()
@@ -102,7 +102,7 @@ export class PostService implements OnInit {
       .catch(this.handleError);
   }
   save(post: Post): Promise<Post> {
-    if (post.id) {
+    if (post._id) {
       return this.update(post);
     }
     else 
@@ -110,14 +110,14 @@ export class PostService implements OnInit {
         return this.create(post);
       }
   }
-  delete(id: number): Promise<void> {
+  delete(id: string): Promise<void> {
     const url = `${this.postsUrl}/${id}`;
     return this.http.delete(url, {headers: this.headers})
       .toPromise()
       .then(() => {
         if (this.posts) {
         this.posts.forEach(item => { 
-          if (item.id === id) {
+          if (item._id === id) {
               this.posts.splice(this.posts.indexOf(item), 1);
             }
           });
@@ -126,89 +126,63 @@ export class PostService implements OnInit {
       })
       .catch(this.handleError);
 }
-  
-
-  removeDeletedCommentFromPosts(deletedCommentId: number): void {
+  deletedCommentFromInMemoryPosts(deletedCommentId: string): void {
     if (this.currentPost) {
-      if (this.currentPost.comments) {
-        this.currentPost.comments.forEach(comment => {
-          if (comment.id == deletedCommentId) {
-            var indexToRemove = this.currentPost.comments.indexOf(comment);
-            this.currentPost.comments.splice(indexToRemove, 1);
-            return;            
-          }
-        })
-      }
+      this.deleteCommentFromPostHelper(this.currentPost, deletedCommentId);
     }
     if (this.posts) {
       this.posts.forEach(post => {
-        if (post.comments) {
-          post.comments.forEach(comment => {
-            if (comment.id == deletedCommentId) {
-            var indexToRemove = this.currentPost.comments.indexOf(comment);
-            this.currentPost.comments.splice(indexToRemove, 1);
-            return;            
-          }
-          })
+        this.deleteCommentFromPostHelper(post, deletedCommentId);
+      })
+    }
+  }
+  deleteCommentFromPostHelper(post: Post, deletedCommentId: string) {
+    if (post.comments) {
+      post.comments.forEach(function(comment) {
+        if (comment._id === deletedCommentId) {
+          post.comments.splice(post.comments.indexOf(comment), 1);
         }
       })
     }
   }
-
   // Update comments for in-memory posts after comment added/modified 
-  updatePostComments(comment: Comment): Post {
-    // Update current post
-    if (this.currentPost && this.currentPost.id === comment.postId) {
-        var foundCommentInCurrentPost = this.updateExistingCommentsInPostHelper(this.currentPost, comment);
-        if (foundCommentInCurrentPost) {
-          return this.currentPost;
-        }
-        else {
-          if (!this.currentPost.comments) this.currentPost.comments = [];
-          this.currentPost.comments.splice(0, 0, comment);
-          return this.currentPost;
-        }
-      } 
+  updateCommentToInMemoryPosts(comment: Comment): void {
+    
+    // Update currentPost
+    if (this.currentPost) {
+        var foundCommentInCurrentPost = this.updatePostWithComment(this.currentPost, comment);
+    }
     // Update posts in posts[]
-        var updatedPost: Post;
-        if (this.posts) {
-          this.posts.forEach(post => {
-            if (post.id === comment.postId) {
-              if (this.updateExistingCommentsInPostHelper(post, comment)) return post;
-              if (!post.comments) post.comments = [];
-              post.comments.splice(0, 0, comment);
-              return post;
-            }
-          });
-
-        }
-  }
-    // UPDATE POSTS WITH COMMENT AND SAVE
-    // REMOVE AFTER SERVER CODE DONE:
-  commentDBPersistREMOVE_WHEN_SERVER_DONE() {
     if (this.posts) {
       this.posts.forEach(post => {
-        this.save(post);
+        this.updatePostWithComment(post, comment);
       });
     }
-     //
-    if (this.currentPost) this.save(this.currentPost);
+  }
+  // Helper for updating comments in a post
+  updatePostWithComment(post: Post, comment: Comment): void {
+    if (post._id === comment.postId) {
+      var foundComment = false;
+      // Check comments array for existing comment to update
+      if (post.comments) {
+          post.comments.forEach(existingComment => {
+            if (existingComment._id === comment._id) {
+              post.comments.splice(post.comments.indexOf(existingComment), 1, comment);
+              foundComment = true;
+            }
+          });
+          // Comment not found in post. Add new comment to beginning.
+          if (!foundComment) {
+            post.comments.splice(0, 0, comment);
+          }
+        }
+      // No comments in post. Add a new comments array with new comment.
+      else {
+        post.comments = [comment];
+      }
+    }
   }
 
-  // Helper for updating comments in a post
-  updateExistingCommentsInPostHelper(post: Post, comment: Comment): boolean {
-    if (post.comments) {
-      var foundComment = false;
-      post.comments.forEach(existingComment => {
-        if (existingComment.id === comment.id) {
-          post.comments.splice(post.comments.indexOf(existingComment), 1, comment);
-          foundComment = true;
-        }
-      });
-    }
-    return foundComment;
-  }
-}
 
 /*
   loadMorePosts(): Promise<Post[]> {

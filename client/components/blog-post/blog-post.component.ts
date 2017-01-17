@@ -28,6 +28,7 @@ export class BlogPostComponent implements AfterViewInit {
 		private pageInfoService: PageInfoService) {};
 
 	ngAfterViewInit() {
+
 		this.postService.getPost(this.route.snapshot.params['id']).then(post => {
 			this.post = post;
 			this.postService.setCurrentPost(this.post);
@@ -41,7 +42,7 @@ export class BlogPostComponent implements AfterViewInit {
 
 	}
 	deletePost() {
-		this.postService.delete(this.post.id).then(() => {
+		this.postService.delete(this.post._id).then(() => {
 			this.router.navigate(['/']);
 		});
 	}

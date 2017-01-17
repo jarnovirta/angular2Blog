@@ -1,8 +1,6 @@
 var mongoose = require('mongoose');
 
 var PostSchema = new mongoose.Schema({
-	id: Number,
-	postId: Number,
 	date: Date,
 	title: String,
 	body: String,
@@ -11,9 +9,11 @@ var PostSchema = new mongoose.Schema({
 		ref: 'User'
 	},
 	comments: [{
+		postId: String,
 		date: Date,
 		body: String,
 		userName: String
+
 	}]
 });	
 

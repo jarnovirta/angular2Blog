@@ -11,7 +11,7 @@
 	<div class="blogPostPanel" infinite-scroll (scrolled)="onScrollDown()" infiniteScrollDistance="0" infiniteScrollThrottle="300" infiniteScrollDisabled="true">
 		<div *ngIf="posts">
 			<div *ngFor="let post of posts">
-				<a [routerLink]="['/posts', post.id]" class="hvr-grow-shadow">
+				<a [routerLink]="['/posts', post._id]" class="hvr-grow-shadow">
 					<div class="blogPostListBox">
 						<div class="blogPostListItem">
 								<h2>{{post.title}}</h2>
@@ -26,5 +26,4 @@
 		<h4 *ngIf="loggedInUser">Click on 'Add a post' to add your first post</h4>
 		<h4 *ngIf="!loggedInUser">Echo!?! No posts yet, check back later!</h4>
 	</div>  
-
 </div>
