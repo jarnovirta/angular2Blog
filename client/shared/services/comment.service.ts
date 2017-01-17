@@ -19,25 +19,21 @@ export class CommentService {
 	} 
 	create(comment: Comment): Promise<Comment> {
 		var blogPostId = comment.postId;
-		console.log("CREATING ");
 		console.dir(comment);
 		return this.http
-		  .post(this.commentsUrl, JSON.stringify(comment), {headers: this.headers})
+		  .post(this.commentsUrl, JSON.stringify(comment), { headers: this.headers })
 		  .toPromise()
 		  .then(res => {
 		  	var savedComment = new Comment(res.json());
 		    this.postService.updateCommentToInMemoryPosts(savedComment);
-		    console.log("RECEIVED SAVED COMMENT: ");
-		    console.dir(savedComment);
 		    return savedComment;
 		  })
 		  .catch(this.handleError);
 	}
 	update(comment: Comment): Promise<Comment> {
-		console.log("UPDATE CREATE COMMENT");
 	const commentUpdateUrl = this.commentsUrl + '/' + comment._id;
 	return this.http
-	  .put(commentUpdateUrl, JSON.stringify(comment), {headers: this.headers})
+	  .put(commentUpdateUrl, JSON.stringify(comment), { headers: this.headers })
 	  .toPromise()
 	  .then(() => {
 	    this.postService.updateCommentToInMemoryPosts(comment);
@@ -53,7 +49,6 @@ export class CommentService {
 
 	delete(id: string): Promise<void> {
 	const url = `${this.commentsUrl}/${id}`;
-	console.log("DELETE COMMENT");
 	return this.http.delete(url, { headers: this.headers })
 	  .toPromise()
 	  .then(res => {

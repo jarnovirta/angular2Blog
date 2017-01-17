@@ -28,6 +28,7 @@
     "angular-in-memory-web-api": "~0.2.2",
     "angular-ui-tinymce": "0.0.5",
     "angular2-infinite-scroll": "^0.2.8",
+    "angular2-jwt": "^0.1.28",
     "async": "^1.5.0",
     "bcrypt": "^0.8.5",
     "body-parser": "^1.14.1",

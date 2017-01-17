@@ -1,7 +1,8 @@
 import { Component, ViewChild, OnInit, AfterViewInit, Injectable } from '@angular/core';
 
 import { Post }   from './../../shared/models/post';
-import { PostService}  from './../../shared/services/post.service';
+import { PostService }  from './../../shared/services/post.service';
+import { UserService }  from './../../shared/services/user.service';
 
 import { InfiniteScroll } from 'angular2-infinite-scroll';
 import { EditPostComponent }  from './../editPost/edit-post.component';
@@ -19,15 +20,19 @@ export class BlogPostListComponent implements OnInit, AfterViewInit {
 	posts: Post[];
   showAddPostDiv = false;
   newPost: Post;
+  loggedInUser: User;
 
   @ViewChild(EditPostComponent)
   private editPostComponent: EditPostComponent;
 
-  constructor(private postService: PostService) {}
+  constructor(private postService: PostService, private userService: UserService) {
+    this.loggedInUser = userService.getUser();
+    this.newPost = new Post();
+  }
   ngOnInit(): void {
     this.getPosts();
-    this.newPost = new Post();
-
+    
+    
   }
   ngAfterViewInit() {
     this.editPostComponent.init(new Post());

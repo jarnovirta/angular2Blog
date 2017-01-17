@@ -42,6 +42,7 @@ export class PageInfoService {
 			switch (url) {
 				case '/home':
 				case '/':
+				case '/login':
 					this.pageInfoChangeEmitter.emit(new PageInfo('CodeGizmos.com', 
 						'Coding and Arduino Blog', 
 						'', 

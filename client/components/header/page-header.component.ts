@@ -15,7 +15,7 @@ export class PageHeaderComponent  {
 	pageInfo: PageInfo;
 	constructor(private router: Router, private pageInfoService: PageInfoService) {	}
   	ngOnInit(): void {
-      this.pageInfoService.getPageInfoChangeEmitter().subscribe(pageInfo => {
+        this.pageInfoService.getPageInfoChangeEmitter().subscribe(pageInfo => {
         this.pageInfo = pageInfo;
       });
   	}

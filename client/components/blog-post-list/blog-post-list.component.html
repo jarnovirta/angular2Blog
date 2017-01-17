@@ -1,5 +1,5 @@
 <div class="container">
-	<div [hidden]="showAddPostDiv">
+	<div [hidden]="showAddPostDiv || !loggedInUser">
 		<button class="btn btn-default customButtom pull-right" (click)="addPost()"><span class="glyphicon glyphicon-plus"></span> Add a post
 		</button>
 	</div>

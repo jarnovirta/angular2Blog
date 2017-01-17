@@ -2,7 +2,7 @@ import { Component, Input, Injectable, ViewChild } from '@angular/core';
 
 import { Post, Comment }	from './../../shared/models/post';
 import { PostService }	from './../../shared/services/post.service';
-import { EditCommentComponent } from './../editComment/edit-comment.component';
+import { CommentFormComponent } from './../comment-form/comment-form.component';
 
 @Component({
   moduleId: module.id,
@@ -14,8 +14,8 @@ import { EditCommentComponent } from './../editComment/edit-comment.component';
 export class CommentSectionComponent  {
 	@Input() post: Post;
 	
-	@ViewChild(EditCommentComponent)
-	private editCommentComponent: EditCommentComponent;
+	@ViewChild(CommentFormComponent)
+	private commentFormComponent: CommentFormComponent;
 
 	showAddCommentDiv = false;
 
@@ -24,6 +24,6 @@ export class CommentSectionComponent  {
 	}
 	addComment() {
 		this.showAddCommentDiv = true;
-		this.editCommentComponent.init(this.post._id);
+		this.commentFormComponent.init(this.post._id);
 	}	
 }

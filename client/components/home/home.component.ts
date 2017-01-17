@@ -1,3 +1,4 @@
+import { Router }	from '@angular/router';
 import { Component, Input } from '@angular/core';
 
 
@@ -8,12 +9,13 @@ import { Component, Input } from '@angular/core';
 })
 
 export class HomeComponent  {
-	@Input() test: string;
-	pageInfo = {
-		'title': 'CodeGizmos.com',
-		'subTitle': 'Coding and Arduino Blog',
-		'description': 'Welcome to my coding and Arduino blog!'
-		};
+	currentPath: string;
+
+	constructor(private router: Router) {
+		this.currentPath = router.url;
+		console.log("current path " + this.currentPath);
+	}
+
 	tinyMCE(elementContent:string) {
 		console.log(elementContent);
 	}

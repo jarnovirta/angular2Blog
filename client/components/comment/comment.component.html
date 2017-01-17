@@ -7,6 +7,6 @@
 	</div>
 
 	<div [hidden]="!showEditCommentDiv">
-		<edit-comment [comment]="comment" (editFinished)="commentEdited($event)"></edit-comment>
+		<comment-form [comment]="comment" (editFinished)="commentEdited($event)"></comment-form>
 	</div>
 </div>

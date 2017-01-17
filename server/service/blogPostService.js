@@ -76,8 +76,8 @@ exports.save = function(editedPost, callback) {
 			});
 		});
 };
-exports.deleteComment = function(idToRemove, callback) {
-	Post.findOneAndUpdate({ "comments._id": idToRemove },
-      { $pull: { comments: {_id: idToRemove }}}, 
+exports.deleteComment = function(id, callback) {
+	Post.findOneAndUpdate({ "comments._id": id },
+      { $pull: { comments: {_id: id }}}, 
       callback);
 }

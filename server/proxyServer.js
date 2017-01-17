@@ -38,7 +38,7 @@ proxy.on('error', function (err, req, res) {
 // 
 var routing = [
   {
-    path: '/auth',
+    path: '/sessions',
     service: 'user-auth-service',
     index: 0
   },
