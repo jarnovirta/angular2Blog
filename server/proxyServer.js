@@ -125,7 +125,6 @@ var selectServer = function(req, res) {
 // HTTP server callback function: Select a server and send the http request.
 //
 var serverCallback = function(req, res) {
-  
   log(service, 'web', 'Proxying request from client ip ' + req.connection.remoteAddress);
   
   var selectedServer = selectServer(req, res);
@@ -137,12 +136,6 @@ var serverCallback = function(req, res) {
     return;
   }
 
-  if (req.headers['x-html-prerender'] == 'true') {
-    var httpServers = seaport.query('webapp-service');
-    var route = getRouteForRequestedUrl('/*');
-    req.headers['x-http-server-port'] = httpServers[route.index].port;
-    route.index = (route.index + 1) % httpServers.length;
-  } 
 
   logSearchBotVisit(req);
 

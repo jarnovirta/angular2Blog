@@ -14,6 +14,7 @@ export class PostService implements OnInit {
   private currentPost: Post;       // Set by blog-post-component.ts when user navigates
                                    // to see post.
   private headers = new Headers({ 'Content-Type': 'application/json' });
+
   private postsUrl = 'api/posts';  // URL to web api
 
   constructor(private http: Http, 
@@ -114,6 +115,10 @@ export class PostService implements OnInit {
   }
   delete(id: string): Promise<void> {
     const url = `${this.postsUrl}/${id}`;
+    console.log(this.userService.getJWTAuthToken());
+    if (!this.headers.has('x-authtoken')) {
+      this.headers.append('x-authtoken', this.userService.getJWTAuthToken());
+    }
     return this.http.delete(url, {headers: this.headers})
       .toPromise()
       .then(() => {

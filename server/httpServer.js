@@ -72,8 +72,8 @@ router.route('/api/posts')
 					});
 					*/
 	})
-    
     .post(function(req, res) {
+    	console.log("AUTH TOKEN " + req.body.authToken);
     	userService.verifyAuthentication(req.body.authToken).then(function(isAuthenticated) {	
     		if (isAuthenticated) {
 				postService.create(req.body.post, function (createdPost, err) {
@@ -93,6 +93,7 @@ router.route('/api/posts')
 	     		res.end('Unauthorized');
 			}
 		});
+	})
         
         /*
         var bear = new Post();      // create a new instance of the Bear model
@@ -106,13 +107,11 @@ router.route('/api/posts')
             res.json({ message: 'Bear created!' });
         });
         */
-    })
+    
     .put(function(req, res) {
     	console.log("PUT POSTS");
-    })
-    .delete(function(req, res) {
-    	console.log("DELETE POST");
     });
+
 	
 
 router.route('/api/posts/:id') 
@@ -120,9 +119,24 @@ router.route('/api/posts/:id')
 		postService.findPostById(req.params.id, function(foundPost) {
 			res.json(foundPost);
 		});
-}); 
-
-router.route('/api/comments')
+	})
+	.delete(function(req, res) {
+		console.log("Received header");
+		console.log(req.get('x-authtoken'));
+    	userService.verifyAuthentication(req.get('x-authtoken')).then(function(isAuthenticated) {	
+    		if (isAuthenticated) {
+				postService.delete(req.params.id, function () {
+					res.sendStatus(200);
+				});
+			}
+			else {
+				res.sendStatus(401);
+			}
+		});
+	});
+	
+        
+  router.route('/api/comments')
 	.post(function(req, res) {
 		var newComment = req.body;
 		postService.findPostById(newComment.postId, function(dbPost) {
@@ -161,4 +175,4 @@ var server = app.listen(port, function () {
 	
 });
 // websockets.connect(server);
-};
+}
