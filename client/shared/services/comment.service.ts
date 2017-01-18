@@ -8,9 +8,7 @@ import { Comment }   from './../models/post';
 export class CommentService {
 	private headers = new Headers({'Content-Type': 'application/json'});
 	private commentsUrl = 'api/comments';  // URL to web api
-	// REMOVE WHEN SERVER CODE DONE
-	private tempCommentIDCounter = 10;
-
+	
 	constructor(private http: Http, private postService: PostService) {}
 
 	private handleError(error: any): Promise<any> {

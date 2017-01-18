@@ -27,9 +27,7 @@
       'rxjs':                      'npm:rxjs',
       'angular2-infinite-scroll': './node_modules/angular2-infinite-scroll',
       'angular-in-memory-web-api': 'npm:angular-in-memory-web-api/bundles/in-memory-web-api.umd.js',
-      'ng2-bs3-modal': 'node_modules/ng2-bs3-modal',
-      "ng2-ckeditor": "./node_modules/ng2-ckeditor",
-
+      "angular2-jwt": "./node_modules/angular2-jwt/angular2-jwt.js"
     },
     // packages tells the System loader how to load when no filename and/or no extension
     packages: {
@@ -43,10 +41,6 @@
       },
       rxjs: {
         defaultExtension: 'js'
-      },
-      "ng2-ckeditor": {
-        "main": "lib/index.js",
-        "defaultExtension": "js",
       }
     }
   });

@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
-import  { Observable } 	from 'rxjs/Rx';
-import { Router, NavigationStart } from '@angular/router';
-import { PageInfoService }  from './../../shared/services/page-info.service';
-import { PageInfo }	from './../../shared/models/page-info';
+import { Component }  from '@angular/core';
+import { Observable } 	from 'rxjs/Rx';
+import { Router, NavigationStart }  from '@angular/router';
+
+import { PageInfoService, PageInfo }  from './../../shared/services/page-info.service';
+import { UserService }  from './../../shared/services/user.service';
 
 @Component({
   moduleId: module.id,
@@ -13,10 +14,13 @@ import { PageInfo }	from './../../shared/models/page-info';
 
 export class PageHeaderComponent  {
 	pageInfo: PageInfo;
-	constructor(private router: Router, private pageInfoService: PageInfoService) {	}
+  
+	constructor(private router: Router, private pageInfoService: PageInfoService, 
+      private userService: UserService) {	}
+
   	ngOnInit(): void {
         this.pageInfoService.getPageInfoChangeEmitter().subscribe(pageInfo => {
-        this.pageInfo = pageInfo;
-      });
+          this.pageInfo = pageInfo;
+        });
   	}
 }

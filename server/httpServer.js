@@ -11,7 +11,10 @@ var seaport = require('seaport').connect(config.seaport);
 var compression = require('compression');
 var http = require('http');
 var log = require('./service/logFunction.js');
+var userService = require('./service/userService');
 var service = 'HTTP SERVER';
+
+
 
 // Set http server port to a port provided by startWebServers.js. Port range 3010-3019.
 
@@ -29,7 +32,7 @@ module.exports.startServer = function() {
 router.route('/api/posts')
 	.get(function(req, res) {
 		var requestedNumberOfPosts;
-		var olderThanPostId;
+		 var olderThanPostId;
 		/* if (message.data.olderThanPostId) {
 			olderThanPostId = message.data.olderThanPostId;
 		} 
@@ -37,11 +40,9 @@ router.route('/api/posts')
 			requestedNumberOfPosts = message.data.requestedNumberOfPosts;
 		}
 		else { */
-			requestedNumberOfPosts = 5;
+		//	requestedNumberOfPosts = 5;
 		// }
-		postService.findPosts(
-				requestedNumberOfPosts,
-				function (posts) {
+		postService.findAll(function (posts) {
 					res.json(posts);
 				}, olderThanPostId
 			);
@@ -71,8 +72,27 @@ router.route('/api/posts')
 					});
 					*/
 	})
-    // create a bear (accessed at POST http://localhost:8080/api/bears)
+    
     .post(function(req, res) {
+    	userService.verifyAuthentication(req.body.authToken).then(function(isAuthenticated) {	
+    		if (isAuthenticated) {
+				postService.create(req.body.post, function (createdPost, err) {
+					if (err) {
+						console.log("Database error");
+						res.writeHead(500, {'Content-Type': 'text/plain' });
+	     				res.end('Internal server error');
+					}
+					else {
+						res.status(200);
+						res.json(createdPost);
+					}
+				});
+			}
+			else {
+				res.writeHead(401, {'Content-Type': 'text/plain' });
+	     		res.end('Unauthorized');
+			}
+		});
         
         /*
         var bear = new Post();      // create a new instance of the Bear model

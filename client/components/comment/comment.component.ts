@@ -1,7 +1,8 @@
 import { Component, Input, Injectable, ViewChild } from '@angular/core';
 
-import { Post, Comment }	from './../../shared/models/post';
 import { CommentService }	from './../../shared/services/comment.service';
+import { UserService }	from './../../shared/services/user.service';
+import { Post, Comment }	from './../../shared/models/post';
 import { EditCommentComponent } from './../editComment/edit-comment.component';
 
 @Component({
@@ -14,8 +15,15 @@ import { EditCommentComponent } from './../editComment/edit-comment.component';
 export class CommentComponent  {
 	@Input() comment: Comment;
 	private showEditCommentDiv = false;
+	private loggedInUser: User;
 
-	constructor(private commentService: CommentService) { }
+	constructor(private commentService: CommentService, 
+		private userService: UserService) { 
+		this.loggedInUser = userService.getUser();
+		this.userService.getLoggedInUserChangeEmitter().subscribe(user => {
+	      this.loggedInUser = user;
+	    });
+	}
 	
 	delete(): void {
 		this.commentService.delete(this.comment._id);

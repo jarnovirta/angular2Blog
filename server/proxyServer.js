@@ -38,13 +38,8 @@ proxy.on('error', function (err, req, res) {
 // 
 var routing = [
   {
-    path: '/sessions',
+    path: '/api/sessions',
     service: 'user-auth-service',
-    index: 0
-  },
-  {
-    path: '/prerender',
-    service: 'html-prerender-server',
     index: 0
   },
   {
@@ -77,12 +72,11 @@ var getRouteForRequestedUrl = function(path) {
     return (path.indexOf(route.path) === 0);
     
   });
-
   return route;
 };
 
 // Select HTTP server to handle the request
-var selectHttpServer = function(req, res) {
+var selectServer = function(req, res) {
   
   var route = getRouteForRequestedUrl(req.url);
   var servers = seaport.query(route.service);
@@ -131,9 +125,10 @@ var selectHttpServer = function(req, res) {
 // HTTP server callback function: Select a server and send the http request.
 //
 var serverCallback = function(req, res) {
+  
   log(service, 'web', 'Proxying request from client ip ' + req.connection.remoteAddress);
   
-  var selectedServer = selectHttpServer(req, res);
+  var selectedServer = selectServer(req, res);
 
   if (!selectedServer) {
     log(service, 'error', 'No http server available');
@@ -164,7 +159,7 @@ var server = http.createServer(serverCallback);
 
 server.on('upgrade', function(req, socket, head) {
   log(service, 'debug', 'Upgrading to Websocket connection');
-  var selectedServer = selectHttpServer(req);
+  var selectedServer = selectServer(req);
   if (!selectedServer) {
     log(service, 'error', 'No selected http server on Websocket upgrade.');
     socket.end();
@@ -177,7 +172,7 @@ server.on('upgrade', function(req, socket, head) {
     });
   }
 });
-
+console.log("STARTING PROXY");
 server.listen(config.proxy.port, function(err) {
   if (err) {
     log(service, 'error', 'PROXY ERROR:' + err);

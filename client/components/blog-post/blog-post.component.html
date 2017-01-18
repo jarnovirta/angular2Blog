@@ -1,5 +1,5 @@
 <div class="container">
-	<div [hidden]="showEditPostDiv">
+	<div [hidden]="!loggedInUser || showEditPostDiv">
 		<button class="btn btn-default customButtom pull-right" (click)="deletePost()">
 			<span class="glyphicon glyphicon-remove"></span> Delete
 		</button>
@@ -9,7 +9,7 @@
 		
 	</div>
 	<br>
-	<div [hidden]="!showEditPostDiv">
+	<div [hidden]="!loggedInUser || !showEditPostDiv">
 		<edit-post (editFinished)="postEdited($event)"></edit-post>
 	</div>
 	<br><br>

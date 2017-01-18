@@ -24,7 +24,7 @@ exports.create = function(post, callback) {
 		Post.create(post, function (err, createdPost) {
 			if (err) { 
 				log(service, 'error', err);
-				return err; 
+				callback(null, err); 
 			}
 			callback(createdPost);
 		});

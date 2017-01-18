@@ -52,7 +52,13 @@ var startUserAuthServer = function() {
         log(service, 'info', "USER-AUTH-SERVER EXITED");
     });
      userAuthServer_child.stderr.on('data', function (data) {
+        console.log(data);
         log(service, 'error', 'USER-AUTH-SERVER ERROR: ' + data);
+    });
+        
+          userAuthServer_child.stdout.on('data', function (data) {
+        console.log(data);
+        
     });
     userAuthServer_child.on('close', function(code) {
         log(service, 'info', 'USER-AUTH-SERVER EXITED WITH CODE: ' + code);

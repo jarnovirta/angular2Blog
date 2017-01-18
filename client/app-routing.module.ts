@@ -11,6 +11,7 @@ const routes: Routes = [
   { path: 'contact',  component: ContactComponent },
   { path: 'about',  component: AboutComponent },
   { path: 'login', component: HomeComponent },
+  { path: 'logout', component: HomeComponent },
   { path: 'posts/:id',  component: BlogPostComponent },
   { path: '**', redirectTo: '/home'}
   

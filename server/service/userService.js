@@ -54,7 +54,7 @@ exports.verifyAuthentication = function(decodeToken) {
 		if (server.host[0] === ':') {
 			ip = server.host.substring(7, availableServers[0].length);
 		}
-		var url = 'http://' + ip + ':'+ server.port + '/sessions/verifyToken';
+		var url = 'http://' + ip + ':'+ server.port + '/api/sessions/verifyToken';
 		var postData = {
 			token: decodeToken
 			};

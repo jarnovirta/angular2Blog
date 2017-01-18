@@ -4,6 +4,7 @@ import { Router, NavigationStart }  from '@angular/router';
 
 import 'rxjs/add/operator/toPromise';
 
+import { UserService }  from './user.service';
 import { Post, Comment }   from './../models/post';
 
 @Injectable()
@@ -12,10 +13,12 @@ export class PostService implements OnInit {
   private posts: Post[];
   private currentPost: Post;       // Set by blog-post-component.ts when user navigates
                                    // to see post.
-  private headers = new Headers({'Content-Type': 'application/json'});
+  private headers = new Headers({ 'Content-Type': 'application/json' });
   private postsUrl = 'api/posts';  // URL to web api
 
-  constructor(private http: Http, private router: Router) { }
+  constructor(private http: Http, 
+    private router: Router,
+    private userService: UserService) { }
 
   ngOnInit() {
     this.router.events.subscribe( event => {
@@ -67,11 +70,10 @@ export class PostService implements OnInit {
   isMorePostsOnServer(): boolean {
         return this.morePostsOnServer;
   };
-  getPost(postId: number): Promise<Post> {
+  getPost(postId: string): Promise<Post> {
     const url = this.postsUrl + '/' + postId;
     if (this.posts && this.posts.length > 0) {
-        var post = this.posts.filter(post => post._id == postId)[0];
-        return Promise.resolve(this.posts.filter(post => post._id == postId)[0]);
+        return Promise.resolve(this.posts.filter(post => post._id === postId)[0]);
         }
     else {
       return this.http.get(url)
@@ -82,12 +84,12 @@ export class PostService implements OnInit {
   };
 
   create(post: Post): Promise<Post> {
+    var token = this.userService.getJWTAuthToken();
     return this.http
-      .post(this.postsUrl, JSON.stringify(post), {headers: this.headers})
+      .post(this.postsUrl, JSON.stringify({ authToken: token, post: post}), { headers: this.headers })
       .toPromise()
       .then(res => {
-        var resObj = res.json().data;
-        var createdPost = new Post( res.json().data);
+        var createdPost = new Post( res.json());
         this.posts.splice(0, 0, createdPost);
         return createdPost;
       })
@@ -96,7 +98,7 @@ export class PostService implements OnInit {
   update(post: Post): Promise<Post> {
     const url = `${this.postsUrl}/${post._id}`;
     return this.http
-      .put(url, JSON.stringify(post), {headers: this.headers})
+      .put(url, JSON.stringify(post), { headers: this.headers })
       .toPromise()
       .then(() => post)
       .catch(this.handleError);
@@ -147,20 +149,19 @@ export class PostService implements OnInit {
   }
   // Update comments for in-memory posts after comment added/modified 
   updateCommentToInMemoryPosts(comment: Comment): void {
-    
     // Update currentPost
     if (this.currentPost) {
-        var foundCommentInCurrentPost = this.updatePostWithComment(this.currentPost, comment);
+        var foundCommentInCurrentPost = this.updatePostWithCommentHelper(this.currentPost, comment);
     }
     // Update posts in posts[]
     if (this.posts) {
       this.posts.forEach(post => {
-        this.updatePostWithComment(post, comment);
+        this.updatePostWithCommentHelper(post, comment);
       });
     }
   }
   // Helper for updating comments in a post
-  updatePostWithComment(post: Post, comment: Comment): void {
+  updatePostWithCommentHelper(post: Post, comment: Comment): void {
     if (post._id === comment.postId) {
       var foundComment = false;
       // Check comments array for existing comment to update
@@ -182,7 +183,7 @@ export class PostService implements OnInit {
       }
     }
   }
-
+}
 
 /*
   loadMorePosts(): Promise<Post[]> {

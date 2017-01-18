@@ -20,14 +20,13 @@ import { ContactComponent }   from './components/contact/contact.component';
 import { AboutComponent }   from './components/about/about.component';
 import { BlogPostComponent }  from './components/blog-post/blog-post.component';
 import { InfiniteScrollModule } from 'angular2-infinite-scroll';
-import { Ng2Bs3ModalModule } from 'ng2-bs3-modal/ng2-bs3-modal';
 import { SimpleTinyComponent }  from './components/tinymce/tinymce.component';
 import { EditPostComponent } from './components/editPost/edit-post.component';
 import { CommentFormComponent } from './components/comment-form/comment-form.component';
 import { PageInfoService }  from './shared/services/page-info.service';
 import { CommentSectionComponent }  from './components/comment-section/comment-section.component';
 import { CommentComponent }  from './components/comment/comment.component';
-import { LoginFormComponent }  from './components/login-form/login-form.component';
+import { LoginLogoutComponent }  from './components/login-logout/login-logout.component';
 
 
 @NgModule({
@@ -36,8 +35,7 @@ import { LoginFormComponent }  from './components/login-form/login-form.componen
     BrowserModule,
     FormsModule,
     HttpModule,
-    InfiniteScrollModule,
-    Ng2Bs3ModalModule
+    InfiniteScrollModule
   ],
   declarations: [
     AppComponent,
@@ -54,7 +52,7 @@ import { LoginFormComponent }  from './components/login-form/login-form.componen
     CommentFormComponent,
     CommentSectionComponent,
     CommentComponent,
-    LoginFormComponent
+    LoginLogoutComponent
   ],
   providers: [ PostService, WebsocketService, PageInfoService, CommentService, UserService],
   bootstrap: [ AppComponent ]

@@ -18,7 +18,6 @@ app.use(require('body-parser').json());
 log(service, 'info', 'Registering to Seaport on ' + config.seaport.host);
 
 var validateUser = function(username, password, callback) {
-	console.log("VERIFY USER");
 	userService.findUserByUserName(username, function(err, foundUser) {
 		if (foundUser && foundUser.password && password) {
 		if (bcrypt.compareSync(password, foundUser.password)) {
@@ -32,14 +31,14 @@ var validateUser = function(username, password, callback) {
 	});
 };
 
-app.post('/sessions', function (req, res) {
+app.post('/api/sessions', function (req, res) {
 	validateUser(req.body.username, req.body.password, function(validatedUser) {
 		if (validatedUser) {
 			var token = jwtService.createToken(validatedUser);
+			res.status(200);
 			res.json(token);
 		}
 		else {
-		
 			res.writeHead(401, {'Content-Type': 'text/plain' });
 	     	res.end('Unauthorized');
 		}
@@ -49,7 +48,7 @@ app.post('/sessions', function (req, res) {
 // Verify JWT token provided in req.body.token. Result in 'result' field of response JSON. 
 // If successful, decoded token in 'decodedToken' field.
 
-app.post('/sessions/verifyToken', function (req, res) {
+app.post('/api/sessions/verifyToken', function (req, res) {
 	jwtService.verifyToken(req.body.token, function(err, decoded) {
 		var response;
 		if (err || !decoded) {

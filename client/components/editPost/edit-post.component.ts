@@ -35,7 +35,9 @@ export class EditPostComponent {
 		this.editFinished.emit(null);
 	}
 	save() {
+		console.log("Saving");
 		this.postService.save(this.editPost).then(savedPost => {
+			console.log("Saved");
 			this.editPost = new Post();
 			this.tinyMCEchild.clearContent();
 			this.editFinished.emit(savedPost);

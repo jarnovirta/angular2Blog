@@ -3,11 +3,12 @@ import { Router, ActivatedRoute, Params }	from '@angular/router';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
 
-import { Post }	from './../../shared/models/post';
 import { PostService } from './../../shared/services/post.service';
-import { EditPostComponent }	from './../editPost/edit-post.component';
 import { PageInfoService }	from './../../shared/services/page-info.service';
+import { UserService }	from './../../shared/services/user.service';
 
+import { Post }	from './../../shared/models/post';
+import { EditPostComponent }	from './../editPost/edit-post.component';
 
 @Component({
   moduleId: module.id,
@@ -17,7 +18,8 @@ import { PageInfoService }	from './../../shared/services/page-info.service';
 
 export class BlogPostComponent implements AfterViewInit {
 	private post: Post;
-	showEditPostDiv = false;
+	private showEditPostDiv = false;
+	private loggedInUser: User;
 	
 	@ViewChild(EditPostComponent)
 	private editPostComponent: EditPostComponent;
@@ -25,10 +27,16 @@ export class BlogPostComponent implements AfterViewInit {
 	constructor(private router: Router, 
 		private route: ActivatedRoute,
 		private postService: PostService,
-		private pageInfoService: PageInfoService) {};
+		private pageInfoService: PageInfoService,
+		private userService: UserService) {
+
+		this.loggedInUser = userService.getUser();
+		this.userService.getLoggedInUserChangeEmitter().subscribe(user => {
+	      this.loggedInUser = user;
+	    });
+	};
 
 	ngAfterViewInit() {
-
 		this.postService.getPost(this.route.snapshot.params['id']).then(post => {
 			this.post = post;
 			this.postService.setCurrentPost(this.post);
