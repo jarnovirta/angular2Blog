@@ -1,8 +1,8 @@
 node_modules
 jspm_packages
 npm-debug.*
-client/**/*.js
-client/3rdPartyScripts/bower_components
+client/components/**/*.js
+client/shared/**/*.js
 *.js.map
 e2e/**/*.js
 e2e/**/*.js.map
