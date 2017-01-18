@@ -14,8 +14,6 @@ var log = require('./service/logFunction.js');
 var userService = require('./service/userService');
 var service = 'HTTP SERVER';
 
-
-
 // Set http server port to a port provided by startWebServers.js. Port range 3010-3019.
 
 var port = seaport.register('webapp-service', { port: process.env.WEB_SERVER_PORT});
@@ -134,8 +132,7 @@ router.route('/api/posts/:id')
 			}
 		});
 	});
-	
-        
+	        
   router.route('/api/comments')
 	.post(function(req, res) {
 		var newComment = req.body;

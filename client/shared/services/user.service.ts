@@ -42,7 +42,7 @@ export class UserService {
         else {
           console.error("Error logging in!");
         }
-      };
+      });
   }
 
   getUser(): User {

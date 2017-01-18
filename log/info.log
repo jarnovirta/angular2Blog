@@ -1,23 +1,22 @@
-{"level":"info","message":"USER AUTHENTICATION SERVER 10232: Registering to Seaport on localhost","timestamp":"2017-01-18T21:54:15.548Z"}
-{"level":"info","message":"DATABASE SERVICE 10232: MongoDB connected, DB host: mongodb://localhost:27017/jvdotcom","timestamp":"2017-01-18T21:54:15.550Z"}
-{"level":"info","message":"WEB SERVERS STARTUP SCRIPT 10250: *** STARTING WEB SERVERS ***","timestamp":"2017-01-18T21:54:18.313Z"}
-{"level":"info","message":"WEB SERVERS STARTUP SCRIPT 10250: Blog App web servers master cluster pid 10250","timestamp":"2017-01-18T21:54:18.314Z"}
-{"level":"info","message":"WEB SERVERS STARTUP SCRIPT 10250: WEB SERVERS STARTED!","timestamp":"2017-01-18T21:54:18.315Z"}
-{"level":"info","message":"DATABASE SERVICE 10250: MongoDB connected, DB host: mongodb://localhost:27017/jvdotcom","timestamp":"2017-01-18T21:54:18.315Z"}
-{"level":"info","message":"HTTP SERVER 10260: STARTING WEB SERVER","timestamp":"2017-01-18T21:54:19.920Z"}
-{"level":"info","message":"HTTP SERVER 10260: Web server listening on port 3010. Connecting to Seaport at localhost, port 9090","timestamp":"2017-01-18T21:54:19.921Z"}
-{"level":"info","message":"DATABASE SERVICE 10260: MongoDB connected, DB host: mongodb://localhost:27017/jvdotcom","timestamp":"2017-01-18T21:54:19.921Z"}
-{"level":"info","message":"HTTP SERVER 10273: STARTING WEB SERVER","timestamp":"2017-01-18T21:54:20.021Z"}
-{"level":"info","message":"HTTP SERVER 10273: Web server listening on port 3013. Connecting to Seaport at localhost, port 9090","timestamp":"2017-01-18T21:54:20.025Z"}
-{"level":"info","message":"DATABASE SERVICE 10273: MongoDB connected, DB host: mongodb://localhost:27017/jvdotcom","timestamp":"2017-01-18T21:54:20.026Z"}
-{"level":"info","message":"HTTP SERVER 10272: STARTING WEB SERVER","timestamp":"2017-01-18T21:54:20.058Z"}
-{"level":"info","message":"HTTP SERVER 10272: Web server listening on port 3012. Connecting to Seaport at localhost, port 9090","timestamp":"2017-01-18T21:54:20.062Z"}
-{"level":"info","message":"DATABASE SERVICE 10272: MongoDB connected, DB host: mongodb://localhost:27017/jvdotcom","timestamp":"2017-01-18T21:54:20.065Z"}
-{"level":"info","message":"HTTP SERVER 10266: STARTING WEB SERVER","timestamp":"2017-01-18T21:54:20.252Z"}
-{"level":"info","message":"HTTP SERVER 10266: Web server listening on port 3011. Connecting to Seaport at localhost, port 9090","timestamp":"2017-01-18T21:54:20.252Z"}
-{"level":"info","message":"DATABASE SERVICE 10266: MongoDB connected, DB host: mongodb://localhost:27017/jvdotcom","timestamp":"2017-01-18T21:54:20.253Z"}
-{"level":"info","message":"PROXY SERVER 10308: STARTING PROXY SERVER","timestamp":"2017-01-18T21:54:21.085Z"}
-{"level":"info","message":"PROXY SERVER 10308: PROXY SERVER STARTED ON PORT 80","timestamp":"2017-01-18T21:54:21.085Z"}
-{"level":"info","message":"PROXY SERVER 10308: Proxy server's UID is now 1000","timestamp":"2017-01-18T21:54:21.085Z"}
-{"level":"info","message":"DATABASE SERVICE 10308: MongoDB connected, DB host: mongodb://localhost:27017/jvdotcom","timestamp":"2017-01-18T21:54:21.085Z"}
-{"level":"error","message":"USER AUTHENTICATION SERVER 10232: Authentication failed. JsonWebTokenError: jwt malformed","timestamp":"2017-01-18T21:55:00.981Z"}
+{"level":"info","message":"USER AUTHENTICATION SERVER 11346: Registering to Seaport on localhost","timestamp":"2017-01-18T22:08:45.524Z"}
+{"level":"info","message":"DATABASE SERVICE 11346: MongoDB connected, DB host: mongodb://localhost:27017/jvdotcom","timestamp":"2017-01-18T22:08:45.527Z"}
+{"level":"info","message":"WEB SERVERS STARTUP SCRIPT 11370: *** STARTING WEB SERVERS ***","timestamp":"2017-01-18T22:08:49.803Z"}
+{"level":"info","message":"WEB SERVERS STARTUP SCRIPT 11370: Blog App web servers master cluster pid 11370","timestamp":"2017-01-18T22:08:49.804Z"}
+{"level":"info","message":"WEB SERVERS STARTUP SCRIPT 11370: WEB SERVERS STARTED!","timestamp":"2017-01-18T22:08:49.805Z"}
+{"level":"info","message":"DATABASE SERVICE 11370: MongoDB connected, DB host: mongodb://localhost:27017/jvdotcom","timestamp":"2017-01-18T22:08:49.805Z"}
+{"level":"info","message":"HTTP SERVER 11386: STARTING WEB SERVER","timestamp":"2017-01-18T22:08:51.196Z"}
+{"level":"info","message":"HTTP SERVER 11386: Web server listening on port 3011. Connecting to Seaport at localhost, port 9090","timestamp":"2017-01-18T22:08:51.196Z"}
+{"level":"info","message":"DATABASE SERVICE 11386: MongoDB connected, DB host: mongodb://localhost:27017/jvdotcom","timestamp":"2017-01-18T22:08:51.196Z"}
+{"level":"info","message":"HTTP SERVER 11380: STARTING WEB SERVER","timestamp":"2017-01-18T22:08:51.426Z"}
+{"level":"info","message":"HTTP SERVER 11380: Web server listening on port 3010. Connecting to Seaport at localhost, port 9090","timestamp":"2017-01-18T22:08:51.426Z"}
+{"level":"info","message":"DATABASE SERVICE 11380: MongoDB connected, DB host: mongodb://localhost:27017/jvdotcom","timestamp":"2017-01-18T22:08:51.427Z"}
+{"level":"info","message":"HTTP SERVER 11392: STARTING WEB SERVER","timestamp":"2017-01-18T22:08:51.570Z"}
+{"level":"info","message":"HTTP SERVER 11392: Web server listening on port 3012. Connecting to Seaport at localhost, port 9090","timestamp":"2017-01-18T22:08:51.570Z"}
+{"level":"info","message":"DATABASE SERVICE 11392: MongoDB connected, DB host: mongodb://localhost:27017/jvdotcom","timestamp":"2017-01-18T22:08:51.570Z"}
+{"level":"info","message":"HTTP SERVER 11398: STARTING WEB SERVER","timestamp":"2017-01-18T22:08:51.667Z"}
+{"level":"info","message":"HTTP SERVER 11398: Web server listening on port 3013. Connecting to Seaport at localhost, port 9090","timestamp":"2017-01-18T22:08:51.667Z"}
+{"level":"info","message":"DATABASE SERVICE 11398: MongoDB connected, DB host: mongodb://localhost:27017/jvdotcom","timestamp":"2017-01-18T22:08:51.668Z"}
+{"level":"info","message":"PROXY SERVER 11441: STARTING PROXY SERVER","timestamp":"2017-01-18T22:09:19.621Z"}
+{"level":"info","message":"PROXY SERVER 11441: PROXY SERVER STARTED ON PORT 80","timestamp":"2017-01-18T22:09:19.621Z"}
+{"level":"info","message":"PROXY SERVER 11441: Proxy server's UID is now 1000","timestamp":"2017-01-18T22:09:19.621Z"}
+{"level":"info","message":"DATABASE SERVICE 11441: MongoDB connected, DB host: mongodb://localhost:27017/jvdotcom","timestamp":"2017-01-18T22:09:19.622Z"}
