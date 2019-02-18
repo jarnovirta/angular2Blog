@@ -1,4 +1,4 @@
-# Sample Blog App with AngularJS + Node.js #
+# A Blog App with AngularJS + Node.js #
 
 ## INSTALLATION: ##
 
