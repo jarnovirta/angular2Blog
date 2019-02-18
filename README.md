@@ -1,4 +1,4 @@
-# Jarno's MEAN, yet friendly blog site #
+# Sample Blog App with AngularJS + Node.js #
 
 ## INSTALLATION: ##
 
